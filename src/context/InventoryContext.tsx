@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { AppConfig, InventoryData, GitHubFileMeta } from '@/types';
 import { useAuth } from './AuthContext';
-import { fetchDbFile, commitDbFile, appendHistoryLog, MOCK_INVENTORY } from '@/api/github';
+import { fetchDbFile, commitDbFile, appendHistoryLog, MOCK_INVENTORY, transformMappings, buildLegacyFormat } from '@/api/github';
 
 interface InventoryContextType {
   data: InventoryData | null;
@@ -42,7 +42,8 @@ export const InventoryProvider = ({ children }: { children: ReactNode }) => {
         setHistoryFileMeta(histMeta);
 
         if (invMeta) {
-          const parsed = JSON.parse(decodeURIComponent(escape(atob(invMeta.content))));
+          const rawData = JSON.parse(decodeURIComponent(escape(atob(invMeta.content))));
+          const parsed = transformMappings(rawData);
           setData(parsed);
           setOriginalData(JSON.parse(JSON.stringify(parsed)));
         } else {
@@ -92,6 +93,7 @@ export const InventoryProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     try {
       if (userContext.isDryRun) {
+        console.log('Dry Run Commit Payload:', buildLegacyFormat(data));
         setOriginalData(JSON.parse(JSON.stringify(data)));
         setHasUnsavedChanges(false);
         setChangesLog([]);
@@ -105,7 +107,7 @@ export const InventoryProvider = ({ children }: { children: ReactNode }) => {
           userContext.owner, 
           userContext.repo, 
           'db/inventory.json', 
-          JSON.stringify(data, null, 2), 
+          JSON.stringify(buildLegacyFormat(data), null, 2), 
           `Update inventory matrix by ${userContext.username}`, 
           latestInvMeta ? latestInvMeta.sha : null, 
           userContext.token

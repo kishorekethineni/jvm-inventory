@@ -9,7 +9,7 @@ const getHeaders = (token: string) => ({
   'X-GitHub-Api-Version': '2022-11-28',
 });
 
-const transformMappings = (raw: any): InventoryData => {
+export const transformMappings = (raw: any): InventoryData => {
   const appsSet = new Set<string>();
   const serversSet = new Set<string>();
   const mappings: Record<string, Record<string, AppConfig>> = {};
@@ -32,7 +32,7 @@ const transformMappings = (raw: any): InventoryData => {
         if (!mappings[appName]) mappings[appName] = {};
         
         mappings[appName][serverName] = {
-          isRunning: true, // Assuming running by default since legacy JSON doesn't track live state
+          isRunning: config.isRunning !== undefined ? config.isRunning : true,
           startScriptPath: config.startScriptPath || '',
           startMessage: config.startMessage || '',
           autoStart: !!config.autoStart,
@@ -51,6 +51,35 @@ const transformMappings = (raw: any): InventoryData => {
     mappings
   };
 };
+
+export const buildLegacyFormat = (data: InventoryData) => {
+  const payload: any = { __profiles__: {} };
+  for (const cluster of data.clusters) {
+    payload.__profiles__[cluster] = {};
+    const servers = data.serversByCluster[cluster] || [];
+    for (const server of servers) {
+      const appsOnServer: any = {};
+      for (const app of data.apps) {
+        const config = data.mappings[app]?.[server];
+        if (config) {
+          appsOnServer[app] = {
+            isRunning: config.isRunning,
+            startScriptPath: config.startScriptPath,
+            startMessage: config.startMessage || null,
+            autoStart: config.autoStart,
+            comments: config.comments || undefined,
+            user: config.user || undefined,
+          };
+        }
+      }
+      // If we want to preserve servers even if they have no apps mapped in the matrix,
+      // we just add the empty object or the populated object.
+      payload.__profiles__[cluster][server] = appsOnServer;
+    }
+  }
+  return payload;
+};
+
 
 // Use the legacy data as the initial seed data
 export const MOCK_INVENTORY: InventoryData = transformMappings(rawMappings);
