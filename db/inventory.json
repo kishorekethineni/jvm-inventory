@@ -1,0 +1,2429 @@
+{
+  "clusters": [
+    "Global IPC1",
+    "Global IPC2",
+    "IDL BLR",
+    "IDL BOM",
+    "RISK IPC1",
+    "RISK IPC2"
+  ],
+  "serversByCluster": {
+    "Global IPC1": [
+      "lpposput50158.phx.aexp.com",
+      "lpposputb50158.phx.aexp.com"
+    ],
+    "Global IPC2": [
+      "lgposput60215",
+      "lgposput60217.gso.aexp.com",
+      "lgposput60213",
+      "lgposput60214",
+      "lgposput60219.gso.aexp.com",
+      "lgposput60220.gso.aexp.com",
+      "lgposputb60200.gso.aexp.com"
+    ],
+    "RISK IPC1": [
+      "lpposputb50248.phx.aexp.com",
+      "lpposputb50249.phx.aexp.com"
+    ],
+    "RISK IPC2": [
+      "lgposputb50206.gso.aexp.com",
+      "lgposputb50207.gso.aexp.com"
+    ],
+    "IDL BOM": [
+      "lmpecput0000264.bom.aexp.com",
+      "lmpecput0000265.bom.aexp.com",
+      "lmpecput0000266.bom.aexp.com",
+      "lmpecput0000267.bom.aexp.com",
+      "lmpecput0000268.bom.aexp.com",
+      "lmpecput0000269.bom.aexp.com"
+    ],
+    "IDL BLR": [
+      "lepecput0000202.blr.aexp.com",
+      "lepecput0000203.blr.aexp.com",
+      "lepecput0000206.blr.aexp.com",
+      "lepecput0000204.blr.aexp.com",
+      "lepecput0000207.blr.aexp.com",
+      "lepecput0000205.blr.aexp.com"
+    ]
+  },
+  "apps": [
+    "Archive",
+    "CacheMaintain",
+    "GMS_AUTH_CONSUMER",
+    "GMS_AUTH_LOAD",
+    "GMS_AUTH_MATCH",
+    "GMS_MATCH_REPLICATION",
+    "GMS_RISK_BATCH",
+    "GMS_RISK_LTR",
+    "GMS_RISK_LTR_CORNERSTONE",
+    "GMS_RISK_LTR_CRUD",
+    "GMS_RISK_LTR_HIERMAINTENANCE",
+    "GMS_RISK_LTR_TOC_CREATE",
+    "GMS_RISK_SCORING_INGESTER-KA",
+    "GMS_RISK_SCORING_INGESTER-PG",
+    "SOC-ACCUM-PROCESSOR",
+    "apcd-processor",
+    "archive",
+    "cache-loader-ram",
+    "cache-loader-risk",
+    "credit-scoring",
+    "dpr",
+    "file-coordinator",
+    "file-extractor",
+    "fin-dg",
+    "gdm-file-processor",
+    "gmsrisk-file-extractor",
+    "gmsrisk-file-watcher",
+    "gmsrisk-orbit-ltr",
+    "gmsrisk-orbit-ltr (GENESIS)",
+    "gmsrisk-orbit-ltr (GMAS)",
+    "gmsrisk-process-failed-msg",
+    "gmsrisk-soc-accume",
+    "gmsrisk-ui-api",
+    "gmsrisk-utility-zip-delete",
+    "gridgain-ram gridgain-risk",
+    "gridgain-risk gridgain-ram",
+    "ltr-report",
+    "moveFileScript.sh (NOT A JVM)",
+    "mrps-exchange-rate",
+    "mrps-formatter",
+    "risk-review",
+    "scheduled-task",
+    "scheduled-tasks",
+    "submon_gmsrisk-ltr-report",
+    "ui-api",
+    "unified-cache-loader",
+    "webagent-risk webagent-ram"
+  ],
+  "servers": [
+    "lepecput0000202.blr.aexp.com",
+    "lepecput0000203.blr.aexp.com",
+    "lepecput0000204.blr.aexp.com",
+    "lepecput0000205.blr.aexp.com",
+    "lepecput0000206.blr.aexp.com",
+    "lepecput0000207.blr.aexp.com",
+    "lgposput60213",
+    "lgposput60214",
+    "lgposput60215",
+    "lgposput60217.gso.aexp.com",
+    "lgposput60219.gso.aexp.com",
+    "lgposput60220.gso.aexp.com",
+    "lgposputb50206.gso.aexp.com",
+    "lgposputb50207.gso.aexp.com",
+    "lgposputb60200.gso.aexp.com",
+    "lmpecput0000264.bom.aexp.com",
+    "lmpecput0000265.bom.aexp.com",
+    "lmpecput0000266.bom.aexp.com",
+    "lmpecput0000267.bom.aexp.com",
+    "lmpecput0000268.bom.aexp.com",
+    "lmpecput0000269.bom.aexp.com",
+    "lpposput50158.phx.aexp.com",
+    "lpposputb50158.phx.aexp.com",
+    "lpposputb50248.phx.aexp.com",
+    "lpposputb50249.phx.aexp.com"
+  ],
+  "mappings": {
+    "GMS_AUTH_CONSUMER": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "Started GMS_AUTH_CONSUMER successfully",
+        "autoStart": false,
+        "comments": "Testing the filter",
+        "user": "gridgain"
+      },
+      "lpposputb50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "Testing the filter",
+        "startMessage": "",
+        "autoStart": true,
+        "comments": "Testing the filltel",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_AUTH_LOAD": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "Started Auth Load successfully",
+        "autoStart": true,
+        "comments": "This is test",
+        "user": "gridgain"
+      },
+      "lpposputb50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "test",
+        "startMessage": "",
+        "autoStart": true,
+        "comments": "case test",
+        "user": "none"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb60200.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_AUTH_MATCH": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_MATCH_REPLICATION": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_LTR_HIERMAINTENANCE": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ltr-hiermaintenance//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-hiermaintenance//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-hiermaintenance//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_SCORING_INGESTER-KA": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "qwertyui",
+        "startMessage": "qwertdsa",
+        "autoStart": true,
+        "comments": "wergf",
+        "user": "wer"
+      }
+    },
+    "GMS_RISK_SCORING_INGESTER-PG": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-orbit-ltr (GENESIS)": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /orbit-ltr/",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-process-failed-msg": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-soc-accume": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-ui-api": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-utility-zip-delete": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50249.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50207.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/utility-zip-delete//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000207.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "submon_gmsrisk-ltr-report": {
+      "lpposput50158.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/ltr-report/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ltr-report",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ltr-report/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ltr-report/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "CacheMaintain": {
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/CacheMaintain/start-RISK.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "tempppe",
+        "startMessage": "",
+        "autoStart": true,
+        "comments": "trewe",
+        "user": "none"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "43erewwas",
+        "startMessage": "",
+        "autoStart": true,
+        "comments": "asDSS",
+        "user": "gmsrisk"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/CacheMaintain/start-RISK.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/CacheMaintain/start-RISK.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_BATCH": {
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "tempeeeee",
+        "startMessage": "",
+        "autoStart": true,
+        "comments": "r3423",
+        "user": "none"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-batch//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-batch//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "credit-scoring": {
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gmsrisk"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/credit-scoring/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/credit-scoring/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "fin-dg": {
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /fin-dg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /fin-dg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/fin-dg/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/fin-dg//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/fin-dg//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gridgain-risk gridgain-ram": {
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb60200.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "unified-cache-loader": {
+      "lgposput60215": {
+        "isRunning": true,
+        "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_LTR": {
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-bom/gmsrisk/deploy/ltr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-bom/gmsrisk/deploy/ltr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-blr/gmsrisk/deploy/ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-blr/gmsrisk/deploy/ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_LTR_CRUD": {
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-crud/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-crud/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_LTR_TOC_CREATE": {
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-toc-create//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-toc-create//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "apcd-processor": {
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ apcd-processor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60219.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ apcd-processor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60220.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ apcd-processor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-file-watcher": {
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/file-watcher/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/file-watcher//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/file-watcher/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "scheduled-tasks": {
+      "lgposput60217.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scheduled-tasks/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scheduled-tasks//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "cache-loader-risk": {
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/cacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/cacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "file-coordinator": {
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-coordinator (Script and jars are missing on 213 server)/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-coordinator (Script and jars are missing on 213 server)/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-coordinator/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-coordinator//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "moveFileScript.sh (NOT A JVM)": {
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/scripts/moveFileScript.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "webagent-risk webagent-ram": {
+      "lgposput60213": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start webagentrisk.service pbrun /usr/bin/systemctl start webagentram.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start webagentrisk.service pbrun /usr/bin/systemctl start webagentram.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start webagentrisk.service pbrun /usr/bin/systemctl start webagentram.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "cache-loader-ram": {
+      "lgposput60214": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "archive": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/archive//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50249.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/archive//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/archive/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/archive/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "dpr": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/dpr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50249.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/dpr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/dpr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50207.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/dpr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/dpr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/dpr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/dpr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "GMS_RISK_LTR_CORNERSTONE": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/ltr-cornerstone//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ltr-cornerstone//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ltr-cornerstone//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ltr-cornerstone//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-file-extractor": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/file-extractor//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/file-extractor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-orbit-ltr (GMAS)": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/orbit-ltr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/orbit-ltr//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "ltr-report": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/ltr-report//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/ltr-report//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "mrps-exchange-rate": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/mrps-exchange-rate//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lpposputb50249.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/mrps-exchange-rate//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/mrps-exchange-rate/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50207.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/mrps-exchange-rate/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "mrps-formatter": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "runs through cronjob.(spark node hpnplgm3db102) /amex/risk-ipc1/spark/deployment/scripts/ /amex/risk-ipc1/spark/deployment/scripts//schedule-sr.sh schedule-cs.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "runs through cronjob.(spark node hpnplgm3db102) /amex/risk-ipc1/spark/deployment/scripts/ /amex/risk-ipc1/spark/deployment/scripts//schedule-sr.sh schedule-cs.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "risk-review": {
+      "lpposputb50248.phx.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc1/deploy/risk-review/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/risk-review/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "Archive": {
+      "lgposputb50206.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/archive//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lgposputb50207.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-ipc2/deploy/archive//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/archive//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/archive/start.sh",
+        "startMessage": "",
+        "autoStart": true,
+        "comments": "This test",
+        "user": "none"
+      }
+    },
+    "gridgain-ram gridgain-risk": {
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000207.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "scheduled-task": {
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/scheduled-tasks/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "SOC-ACCUM-PROCESSOR": {
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/socaccum//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "ui-api": {
+      "lmpecput0000264.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000202.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/ui-api//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "file-extractor": {
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-bom/gmsrisk/file-extractor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-bom/gmsrisk/file-extractor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/risk-blr/deploy/file-extractor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gdm-file-processor": {
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-processor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-processor/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-processor//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000207.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/file-processor//start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    },
+    "gmsrisk-orbit-ltr": {
+      "lmpecput0000268.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+        "startMessage": "",
+        "autoStart": false,
+        "comments": "",
+        "user": "gridgain"
+      }
+    }
+  }
+}
