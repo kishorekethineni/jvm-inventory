@@ -1,0 +1,1729 @@
+{
+  "__profiles__": {
+    "Global IPC1": {
+      "lpposput50158.phx.aexp.com": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": "Started GMS_AUTH_CONSUMER successfully",
+          "comments": "Testing the filter",
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": "Started Auth Load successfully",
+          "comments": "This is test",
+          "autoStart": true,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_HIERMAINTENANCE": {
+          "startScriptPath": "/amex/gms/ltr-hiermaintenance//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr (GENESIS)": {
+          "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gms/process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-ui-api": {
+          "startScriptPath": "/amex/gms/ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "submon_gmsrisk-ltr-report": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/ltr-report/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lpposputb50158.phx.aexp.com": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "Testing the filter",
+          "startMessage": null,
+          "comments": "Testing the filltel",
+          "autoStart": true,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "test",
+          "startMessage": null,
+          "comments": "case test",
+          "autoStart": true,
+          "user": "none"
+        }
+      }
+    },
+    "Global IPC2": {
+      "lgposput60215": {
+        "CacheMaintain": {
+          "startScriptPath": "/amex/gms/CacheMaintain/start-RISK.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_BATCH": {
+          "startScriptPath": "tempeeeee",
+          "startMessage": null,
+          "comments": "r3423",
+          "autoStart": true,
+          "user": "none"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gmsrisk"
+        },
+        "fin-dg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /fin-dg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr (GENESIS)": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /orbit-ltr/",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-ui-api": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposput60217.gso.aexp.com": {
+        "CacheMaintain": {
+          "startScriptPath": "tempppe",
+          "startMessage": null,
+          "comments": "trewe",
+          "autoStart": true,
+          "user": "none"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_BATCH": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-batch//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_CRUD": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-crud/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_HIERMAINTENANCE": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-hiermaintenance//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_TOC_CREATE": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-toc-create//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "apcd-processor": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ apcd-processor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-file-watcher": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/file-watcher/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "scheduled-tasks": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scheduled-tasks/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposput60213": {
+        "CacheMaintain": {
+          "startScriptPath": "43erewwas",
+          "startMessage": null,
+          "comments": "asDSS",
+          "autoStart": true,
+          "user": "gmsrisk"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "cache-loader-risk": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/cacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "file-coordinator": {
+          "startScriptPath": "/amex/gms/file-coordinator (Script and jars are missing on 213 server)/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "fin-dg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /fin-dg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "moveFileScript.sh (NOT A JVM)": {
+          "startScriptPath": "/amex/gmsimc/scripts/moveFileScript.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "webagent-risk webagent-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start webagentrisk.service pbrun /usr/bin/systemctl start webagentram.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposput60214": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_HIERMAINTENANCE": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-hiermaintenance//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "cache-loader-ram": {
+          "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "file-coordinator": {
+          "startScriptPath": "/amex/gms/file-coordinator (Script and jars are missing on 213 server)/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-ui-api": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "submon_gmsrisk-ltr-report": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ltr-report",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposput60219.gso.aexp.com": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_BATCH": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-batch//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_CRUD": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-crud/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_TOC_CREATE": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /ltr-toc-create//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "apcd-processor": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ apcd-processor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposput60220.gso.aexp.com": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /scoring-ingester//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "apcd-processor": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ apcd-processor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/ amex/gmsimc/gmsrisk/deploy /credit-scoring",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-process-failed-msg": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /process-failed-msg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-soc-accume": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /socaccum/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy /utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "Jar location: /amex/gmsimc/gmsrisk/deploy/unifiedCacheLoader Script location: /amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposputb60200.gso.aexp.com": {
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-risk gridgain-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service//amex/gridgain-RISK/app/lib/internal/gmsrisk-cache-vo-5.2.71.RELEASE.jar /amex/gridgain-RISK/gridgain-binary/work/log",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      }
+    },
+    "RISK IPC1": {
+      "lpposputb50248.phx.aexp.com": {
+        "archive": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/archive//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/dpr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_CORNERSTONE": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/ltr-cornerstone//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-file-extractor": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/file-extractor//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-file-watcher": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/file-watcher//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr (GMAS)": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/orbit-ltr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "ltr-report": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/ltr-report//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "mrps-exchange-rate": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/mrps-exchange-rate//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "mrps-formatter": {
+          "startScriptPath": "runs through cronjob.(spark node hpnplgm3db102) /amex/risk-ipc1/spark/deployment/scripts/ /amex/risk-ipc1/spark/deployment/scripts//schedule-sr.sh schedule-cs.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "risk-review": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/risk-review/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lpposputb50249.phx.aexp.com": {
+        "archive": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/archive//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/dpr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "mrps-exchange-rate": {
+          "startScriptPath": "/amex/risk-ipc1/deploy/mrps-exchange-rate//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      }
+    },
+    "RISK IPC2": {
+      "lgposputb50206.gso.aexp.com": {
+        "Archive": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/archive//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/dpr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_CORNERSTONE": {
+          "startScriptPath": "/amex/gms/ltr-cornerstone//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-file-extractor": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/file-extractor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-file-watcher": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/file-watcher/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr (GMAS)": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/orbit-ltr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "ltr-report": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/ltr-report//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "mrps-exchange-rate": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/mrps-exchange-rate/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "mrps-formatter": {
+          "startScriptPath": "runs through cronjob.(spark node hpnplgm3db102) /amex/risk-ipc1/spark/deployment/scripts/ /amex/risk-ipc1/spark/deployment/scripts//schedule-sr.sh schedule-cs.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "risk-review": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/risk-review/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lgposputb50207.gso.aexp.com": {
+        "Archive": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/archive//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/dpr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/utility-zip-delete//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "mrps-exchange-rate": {
+          "startScriptPath": "/amex/risk-ipc2/deploy/mrps-exchange-rate/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      }
+    },
+    "IDL BOM": {
+      "lmpecput0000264.bom.aexp.com": {
+        "cache-loader-ram": {
+          "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "CacheMaintain": {
+          "startScriptPath": "/amex/gms/CacheMaintain/start-RISK.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/amex/gms/credit-scoring/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "file-coordinator": {
+          "startScriptPath": "/amex/gms/file-coordinator/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "fin-dg": {
+          "startScriptPath": "/amex/gms/fin-dg/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR": {
+          "startScriptPath": "/amex/risk-bom/gmsrisk/deploy/ltr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "scheduled-task": {
+          "startScriptPath": "/amex/gms/scheduled-tasks/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "ui-api": {
+          "startScriptPath": "/amex/gms/ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "webagent-risk webagent-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start webagentrisk.service pbrun /usr/bin/systemctl start webagentram.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lmpecput0000265.bom.aexp.com": {
+        "cache-loader-risk": {
+          "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR": {
+          "startScriptPath": "/amex/risk-bom/gmsrisk/deploy/ltr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "ui-api": {
+          "startScriptPath": "/amex/gms/ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lmpecput0000266.bom.aexp.com": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_CORNERSTONE": {
+          "startScriptPath": "/amex/gms/ltr-cornerstone//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lmpecput0000267.bom.aexp.com": {
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gms/unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lmpecput0000268.bom.aexp.com": {
+        "archive": {
+          "startScriptPath": "/amex/gms/archive/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/gms/dpr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "file-extractor": {
+          "startScriptPath": "/amex/risk-bom/gmsrisk/file-extractor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gdm-file-processor": {
+          "startScriptPath": "/amex/gms/file-processor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr": {
+          "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "submon_gmsrisk-ltr-report": {
+          "startScriptPath": "/amex/gms/ltr-report/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lmpecput0000269.bom.aexp.com": {
+        "archive": {
+          "startScriptPath": "/amex/gms/archive/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/gms/dpr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "file-extractor": {
+          "startScriptPath": "/amex/risk-bom/gmsrisk/file-extractor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gdm-file-processor": {
+          "startScriptPath": "/amex/gms/file-processor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr": {
+          "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      }
+    },
+    "IDL BLR": {
+      "lepecput0000202.blr.aexp.com": {
+        "Archive": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/archive//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "cache-loader-risk": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/cacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "CacheMaintain": {
+          "startScriptPath": "/amex/gms/CacheMaintain/start-RISK.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "credit-scoring": {
+          "startScriptPath": "/amex/gms/credit-scoring/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "dpr": {
+          "startScriptPath": "/amex/gms/dpr//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "file-coordinator": {
+          "startScriptPath": "/amex/gms/file-coordinator//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "fin-dg": {
+          "startScriptPath": "/amex/gms/fin-dg//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR": {
+          "startScriptPath": "/amex/risk-blr/gmsrisk/deploy/ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "scheduled-tasks": {
+          "startScriptPath": "/amex/gms/scheduled-tasks//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "ui-api": {
+          "startScriptPath": "/amex/gms/ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "webagent-risk webagent-ram": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start webagentrisk.service pbrun /usr/bin/systemctl start webagentram.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lepecput0000203.blr.aexp.com": {
+        "Archive": {
+          "startScriptPath": "/amex/gms/archive/start.sh",
+          "startMessage": null,
+          "comments": "This test",
+          "autoStart": true,
+          "user": "none"
+        },
+        "cache-loader-ram": {
+          "startScriptPath": "/amex/gms/cacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR": {
+          "startScriptPath": "/amex/risk-blr/gmsrisk/deploy/ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "ui-api": {
+          "startScriptPath": "/amex/gms/ui-api//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lepecput0000206.blr.aexp.com": {
+        "file-extractor": {
+          "startScriptPath": "/amex/risk-blr/deploy/file-extractor/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gdm-file-processor": {
+          "startScriptPath": "/amex/gms/file-processor//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-orbit-ltr": {
+          "startScriptPath": "/amex/gms/orbit-ltr/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "submon_gmsrisk-ltr-report": {
+          "startScriptPath": "/amex/gms/ltr-report/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lepecput0000204.blr.aexp.com": {
+        "fin-dg": {
+          "startScriptPath": "/amex/gms/fin-dg//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_CONSUMER": {
+          "startScriptPath": "/amex/gms/AuthConsumer/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_LTR_CORNERSTONE": {
+          "startScriptPath": "/amex/gms/ltr-cornerstone//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lepecput0000207.blr.aexp.com": {
+        "gdm-file-processor": {
+          "startScriptPath": "/amex/gms/file-processor//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      },
+      "lepecput0000205.blr.aexp.com": {
+        "GMS_AUTH_LOAD": {
+          "startScriptPath": "/amex/gms/AuthLoad/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_AUTH_MATCH": {
+          "startScriptPath": "/amex/gms/AuthMatch/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_MATCH_REPLICATION": {
+          "startScriptPath": "/amex/gms/MatchReplication/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-KA": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "GMS_RISK_SCORING_INGESTER-PG": {
+          "startScriptPath": "/amex/gms/scoring-ingester/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gmsrisk-utility-zip-delete": {
+          "startScriptPath": "/amex/gms/utility-zip-delete/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "gridgain-ram gridgain-risk": {
+          "startScriptPath": "pbrun /usr/bin/systemctl start gridgain-risk.service pbrun /usr/bin/systemctl status gridgain-risk.service pbrun /usr/bin/systemctl stop gridgain-risk.service",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "SOC-ACCUM-PROCESSOR": {
+          "startScriptPath": "/amex/gms/socaccum//start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        },
+        "unified-cache-loader": {
+          "startScriptPath": "/amex/gmsimc/gmsrisk/deploy/ unifiedCacheLoader/start.sh",
+          "startMessage": null,
+          "autoStart": false,
+          "user": "gridgain"
+        }
+      }
+    }
+  }
+}
+
+
+
+
+

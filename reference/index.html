@@ -1,0 +1,4234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JVM Validation Manager & Cache Monitoring Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            color: #24292f;
+        }
+        body.login-mode {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 18% 20%, rgba(0, 146, 214, 0.28), transparent 35%),
+                radial-gradient(circle at 80% 75%, rgba(0, 79, 159, 0.34), transparent 42%),
+                linear-gradient(135deg, #001e62 0%, #003087 42%, #005bbb 74%, #00a3e0 100%);
+        }
+        body.app-mode {
+            display: block;
+            padding: 40px 20px;
+            background: #f0f2f5;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: #1a1a2e;
+            letter-spacing: -0.5px;
+        }
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .login-shell {
+            width: 100%;
+            max-width: 540px;
+            position: relative;
+        }
+        .login-shell::before {
+            content: '';
+            position: absolute;
+            inset: -22px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(0, 163, 224, 0.26), rgba(0, 79, 159, 0.3));
+            filter: blur(10px);
+            z-index: 0;
+        }
+        .login-card {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.58);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 251, 255, 0.96));
+            box-shadow: 0 22px 45px rgba(0, 24, 79, 0.33);
+            padding: 30px;
+        }
+        .login-chip {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: #003087;
+            background: rgba(0, 163, 224, 0.15);
+            border: 1px solid rgba(0, 91, 187, 0.2);
+            border-radius: 999px;
+            padding: 6px 10px;
+            margin-bottom: 12px;
+        }
+        .login-title {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #001b5e;
+            letter-spacing: -0.6px;
+        }
+        .login-subtitle {
+            color: #3c4f77;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+        .card {
+            background: #fff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+            border: 1px solid #e1e4e8;
+        }
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #1a1a2e;
+        }
+        .app-shell {
+            width: 100%;
+            max-width: none;
+        }
+        .home-hero {
+            margin-bottom: 20px;
+            padding: 28px 30px;
+            border-radius: 18px;
+            background: linear-gradient(120deg, #002a7f, #004ca8 52%, #00a3e0 100%);
+            color: #fff;
+            box-shadow: 0 18px 36px rgba(0, 48, 135, 0.18);
+        }
+        .home-hero h2 {
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .home-hero p {
+            max-width: 760px;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .home-screen {
+            border-radius: 18px;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+            padding: 0;
+            overflow: hidden;
+        }
+        .home-tabs-wrap {
+            padding: 22px 24px 0;
+            background: linear-gradient(180deg, #fbfdff 0%, #f5f9ff 100%);
+            border-bottom: 1px solid #dbe6f3;
+        }
+        .home-tab-copy {
+            margin-bottom: 14px;
+        }
+        .home-tab-copy h3 {
+            margin-bottom: 4px;
+            font-size: 20px;
+            color: #0f172a;
+        }
+        .home-tab-copy p {
+            margin-bottom: 0;
+            color: #5b6b84;
+        }
+        .home-panel {
+            padding: 24px;
+        }
+        .mappings-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        .mappings-toolbar-copy h3 {
+            margin-bottom: 4px;
+        }
+        .mappings-toolbar-copy p {
+            margin-bottom: 0;
+            color: #64748b;
+        }
+        .mappings-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .cache-metrics-panel {
+            padding: 0;
+            background: #f8fafc;
+        }
+        .card p { color: #586069; font-size: 14px; margin-bottom: 12px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #57606a; margin-bottom: 4px; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3,102,214,0.15);
+        }
+        button {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            transition: background 0.2s, transform 0.1s;
+        }
+        button:active { transform: scale(0.97); }
+        .btn-primary { background: #0366d6; }
+        .btn-primary:hover { background: #0255b3; }
+        .btn-secondary { background: #2ea44f; }
+        .btn-secondary:hover { background: #27903f; }
+        .btn-danger { background: #cf222e; }
+        .btn-danger:hover { background: #a40e26; }
+        .btn-group { display: flex; gap: 10px; margin-top: 8px; }
+        .login-card .btn-group button {
+            flex: 1;
+            padding: 11px 16px;
+        }
+        .login-card .btn-primary {
+            background: linear-gradient(120deg, #005bbb, #007dc3 46%, #00a3e0);
+        }
+        .login-card .btn-primary:hover {
+            background: linear-gradient(120deg, #004a98, #0063a3 46%, #0089bf);
+        }
+
+        /* Table layout */
+        #servers-container {
+            overflow: auto;
+            margin-bottom: 16px;
+            max-width: 100%;
+            max-height: min(72vh, 920px);
+            position: relative;
+            border: 1px solid #dbe6f3;
+            border-radius: 12px;
+            background: #fff;
+        }
+        table { --app-column-width: 24ch; width: max-content; min-width: 100%; table-layout: auto; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+        thead th {
+            position: sticky; top: 0; background: #f6f8fa; z-index: 2;
+            text-align: left; padding: 10px 12px;
+            border-bottom: 2px solid #d0d7de;
+            font-size: 13px; color: #57606a; text-transform: uppercase; letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        /* Sticky first column (corner header + app name cells) */
+        thead th:first-child {
+            position: sticky; left: 0; z-index: 3; background: #f6f8fa;
+            border-right: 2px solid #d0d7de;
+        }
+        tbody td:first-child {
+            position: sticky; left: 0; z-index: 1; background: #fff;
+            border-right: 2px solid #eaeef2;
+        }
+        tbody tr:hover td:first-child { background: #f6f8fa; }
+        tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eaeef2;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        tbody tr:hover { background: #f6f8fa; }
+        thead th:first-child,
+        tbody td:first-child {
+            width: var(--app-column-width, 24ch);
+            min-width: var(--app-column-width, 24ch);
+        }
+        thead th:not(:first-child):not(:last-child) {
+            min-width: 0;
+        }
+        thead th:last-child,
+        tbody td:last-child {
+            min-width: 72px;
+        }
+        .mapping-header-cell,
+        .mapping-app-cell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+            min-width: 0;
+        }
+        .mapping-cell-actions {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .cell-config-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 12px;
+            line-height: 1;
+            padding: 0;
+        }
+        .cell-config-btn:hover {
+            background: #e2e8f0;
+        }
+        input.server-name, input.app-name {
+            border: 1px solid #d0d7de; padding: 7px 10px; border-radius: 6px; font-size: 13px;
+            margin-bottom: 0;
+            width: 100%;
+            min-width: 0 !important;
+        }
+        input.server-name:focus, input.app-name:focus {
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3,102,214,0.15);
+            outline: none;
+        }
+        .cell-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: #0366d6; }
+        .delete-btn { background: #cf222e; color: #fff; border-radius: 6px; padding: 5px 10px; font-size: 12px; }
+        .delete-btn:hover { background: #a40e26; }
+
+        #token-check { font-weight: 600; margin-top: 10px; font-size: 14px; }
+        #status-msg { font-weight: 600; margin-top: 12px; font-size: 14px; }
+
+        /* Smooth hide/show */
+        .hidden { display: none !important; }
+
+        /* View/Edit mode toggle */
+        .mode-toggle { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+        .mode-toggle span { font-size: 14px; font-weight: 600; color: #57606a; }
+        .mode-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .mode-selector {
+            width: 170px;
+            padding: 6px 10px;
+            font-size: 12px;
+            border-radius: 8px;
+            border: 1px solid #d0d7de;
+            background: #fff;
+            color: #334155;
+        }
+        .meta-modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.45);
+            z-index: 12000;
+            padding: 20px;
+        }
+        .meta-modal-card {
+            width: 100%;
+            max-width: 520px;
+            background: #fff;
+            border: 1px solid #d0d7de;
+            border-radius: 12px;
+            box-shadow: 0 24px 40px rgba(15, 23, 42, 0.3);
+            padding: 18px;
+        }
+        .meta-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .meta-modal-header h3 {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+        .meta-close-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #e2e8f0;
+            color: #334155;
+            padding: 0;
+            font-size: 16px;
+        }
+        .meta-close-btn:hover {
+            background: #cbd5e1;
+        }
+        .meta-modal textarea {
+            width: 100%;
+            min-height: 90px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .meta-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .meta-modal label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+        .meta-modal input[type="text"], .meta-modal select {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .meta-modal select { background: #fff; cursor: pointer; }
+        .meta-modal-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 12px;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 12px;
+        }
+        .meta-modal-row label { margin-bottom: 0; }
+        .meta-autostart-toggle { display: flex; align-items: center; gap: 10px; }
+        .toggle-switch { position: relative; width: 44px; height: 24px; cursor: pointer; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; inset: 0; background: #d0d7de; border-radius: 24px; transition: background 0.2s; }
+        .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform 0.2s; }
+        .toggle-switch input:checked + .toggle-slider { background: #0366d6; }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+        /* View-only mode styles */
+        .view-only input.server-name,
+        .view-only input.app-name { border-color: transparent; background: transparent; pointer-events: none; }
+        .view-only .cell-checkbox { pointer-events: none; }
+        .view-only .delete-btn,
+        .view-only .edit-only { display: none !important; }
+
+        /* Cache Monitoring Dashboard Styles */
+        .section-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 0;
+            border-bottom: 2px solid #d7e2f0;
+        }
+
+        .section-tab {
+            padding: 12px 16px;
+            border: none;
+            background: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-weight: 600;
+            color: #4b5f7d;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-size: 14px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .section-tab.active {
+            color: #004ca8;
+            border-bottom-color: #00a3e0;
+            background: #ffffff;
+            box-shadow: 0 -1px 0 #dbe6f3, 0 0 0 1px #dbe6f3;
+        }
+
+        .section-tab:hover {
+            color: #004ca8;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        /* Landing Page */
+        .landing-root {
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.08), transparent 40%),
+            radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.06), transparent 40%),
+            #f8fafc;
+            padding: 40px 20px;
+        }
+
+        .landing-container { width: 100%; max-width: 1150px; }
+        .landing-header { text-align: center; margin-bottom: 30px; }
+        .landing-header h1 { font-size: 32px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        .landing-header p { font-size: 16px; color: #64748b; }
+
+        .group-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
+
+        .group-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e1e4e8;
+        }
+
+        .group-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .env-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
+        .compare-row { display: flex; justify-content: space-between; gap: 12px; }
+
+        .env-card, .compare-card {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            color: #000;
+        }
+
+        .env-card:hover, .compare-card:hover {
+            background: #e0e7ff;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .env-card.active, .compare-card.active {
+            background: #dbeafe;
+            border-color: #2563eb;
+        }
+
+        .status-badge {
+            margin-left: 10px;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .healthy { background: #dcfce7; color: #166534; }
+        .warning { background: #fef3c7; color: #92400e; }
+
+        /* Results Page */
+        .results-root {
+            min-height: calc(100vh - 100px);
+            padding: 30px;
+            background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.08), transparent 40%),
+            radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.06), transparent 40%),
+            #f8fafc;
+        }
+
+        .results-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .header-title { text-align: center; font-size: 24px; font-weight: 700; }
+        .header-right { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+
+        .env-box {
+            background: #0366d6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .back-btn { background: #0366d6; }
+        .back-btn:hover { background: #0255b3; }
+        .secondary-btn { background: #d0d7de; color: #1e293b; }
+        .secondary-btn:hover { background: #cbd5e1; }
+
+        .kpi-split-card {
+            display: flex;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e1e4e8;
+            margin-bottom: 20px;
+        }
+
+        .kpi-left {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .kpi-left label { font-size: 13px; color: #64748b; display: block; margin-bottom: 8px; }
+
+        .kpi-right {
+            flex: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f9fbff, #eef2ff);
+        }
+
+        .kpi-right span { font-size: 13px; color: #64748b; }
+        .kpi-right h1 { font-size: 40px; font-weight: 700; margin-top: 8px; color: #1e293b; }
+        .kpi-right h1.alert { color: #cf222e; animation: blink 1s infinite; }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #d0d7de;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dropdown:focus {
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.15);
+            outline: none;
+        }
+
+        .refresh-icon-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #0366d6;
+            transition: transform 0.2s;
+            padding: 0;
+        }
+
+        .refresh-icon-btn:hover { transform: rotate(180deg) scale(1.1); }
+
+        .count-header { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+
+        .search-bar {
+            margin-bottom: 16px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #d0d7de;
+            font-size: 14px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e1e4e8;
+        }
+
+        .alert-banner {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: 500;
+            border: 1px solid #fcd34d;
+        }
+
+        .mismatch-section {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e1e4e8;
+        }
+
+        .mismatch-section h3 { margin-bottom: 12px; font-size: 15px; }
+
+        .diff-pos { color: #238636; font-weight: 600; }
+        .diff-neg { color: #cf222e; font-weight: 600; }
+
+        /* Patch Page */
+        .patch-root { padding: 30px; background: #f8fafc; min-height: calc(100vh - 100px); }
+
+        .section-divider { margin: 30px 0; border-top: 1px solid #e2e8f0; }
+        .patch-title { font-size: 20px; font-weight: 600; margin: 30px 0 20px 0; text-align: center; }
+
+        .status-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .status-pill.idle { background: #e2e8f0; color: #64748b; }
+        .status-pill.running { background: #fef3c7; color: #92400e; }
+        .status-pill.completed { background: #dcfce7; color: #166534; }
+
+        .time-info { margin-top: 10px; font-size: 12px; color: #475569; }
+        .time-info p { margin: 4px 0; }
+
+        .primary-btn { background: #0366d6; color: white; margin-right: 10px; margin-bottom: 10px; }
+        .primary-btn:hover { background: #0255b3; }
+        .success-btn { background: #2ea44f; color: white; margin-right: 10px; margin-bottom: 10px; }
+        .success-btn:hover { background: #27903f; }
+
+        .results-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e1e4e8;
+        }
+
+        .results-card h3 { margin-bottom: 12px; font-size: 15px; }
+
+        /* History Page */
+        .history-root {
+            padding: 30px;
+            background: #f8fafc;
+            min-height: calc(100vh - 100px);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .history-header h2 { font-size: 24px; font-weight: 700; }
+        .history-card { background: white; padding: 16px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #e1e4e8; }
+
+        .empty-state { text-align: center; margin-top: 50px; color: #64748b; font-size: 14px; }
+
+        /* Loading */
+        .global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+        }
+
+        .spinner {
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #0366d6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fee2e2;
+            color: #cf222e;
+            padding: 12px 16px;
+            border-radius: 6px;
+            z-index: 9998;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #f85149;
+        }
+
+        .footer-mark {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            opacity: 0.5;
+        }
+
+        /* Patching Validator Styles */
+        .info-box-patching {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .info-box-patching strong {
+            color: #1976d2;
+        }
+
+        .info-box-patching code {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Advanced Validation Styles */
+        .validation-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        .validation-tab-btn {
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #57606a;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .validation-tab-btn.active {
+            color: #0366d6;
+            border-bottom-color: #0366d6;
+        }
+
+        .validation-tab-btn:hover {
+            color: #0366d6;
+        }
+
+        .validation-tab-content {
+            display: none;
+        }
+
+        .validation-tab-content.active {
+            display: block;
+        }
+
+        .patching-input-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .patching-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-icon-patching {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: #0366d6;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .patching-textarea {
+            width: 100%;
+            height: 180px;
+            padding: 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        .patching-textarea:focus {
+            outline: none;
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.15);
+        }
+
+        .patching-help-text {
+            margin-top: 8px;
+            color: #57606a;
+            font-size: 12px;
+            padding: 8px;
+            background: #f6f8fa;
+            border-radius: 4px;
+            border-left: 3px solid #0366d6;
+        }
+
+        .patching-button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .patching-button-group button {
+            padding: 10px 24px;
+        }
+
+        .patching-loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .patching-report-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .patching-report-header {
+            background: linear-gradient(120deg, #0366d6, #0255b3);
+            color: white;
+            padding: 16px;
+            border-radius: 6px 6px 0 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .patching-report-content {
+            background: #f9fafb;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 1px solid #d0d7de;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .patching-report-content.status-healthy {
+            color: #238636;
+        }
+
+        .patching-report-content.status-issues {
+            color: #cf222e;
+        }
+
+        @media (max-width: 768px) {
+            .patching-input-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        .login-mode .footer-mark {
+            color: rgba(255, 255, 255, 0.68);
+            opacity: 0.8;
+        }
+        .dry-run-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            color: #92400e;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+        .dry-run-badge::before {
+            content: '⚡';
+        }
+        .btn-dry-run {
+            background: linear-gradient(120deg, #d97706, #f59e0b);
+            color: white;
+        }
+        .btn-dry-run:hover {
+            background: linear-gradient(120deg, #b45309, #d97706);
+        }
+
+        .mapping-filter-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        .mapping-filter-bar label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+        .mapping-filter-bar input[type="text"] {
+            padding: 6px 10px;
+            font-size: 13px;
+            border: 1px solid #d0d7de;
+            border-radius: 7px;
+            margin-bottom: 0;
+            width: 180px;
+        }
+        .mapping-filter-bar input[type="text"]:focus {
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3,102,214,0.12);
+            outline: none;
+        }
+        .sort-btn {
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            border: 1px solid #d0d7de;
+            background: #fff;
+            color: #334155;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .sort-btn:hover { background: #e2e8f0; }
+        .sort-btn.active { background: #0366d6; color: #fff; border-color: #0366d6; }
+        .filter-divider {
+            width: 1px;
+            height: 28px;
+            background: #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1280px) {
+            body.app-mode {
+                padding-left: 80px;
+                padding-right: 80px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .login-card {
+                padding: 22px;
+            }
+            .login-title {
+                font-size: 24px;
+            }
+            .login-card .btn-group {
+                flex-direction: column;
+            }
+            .home-hero,
+            .home-tabs-wrap,
+            .home-panel {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+            .mappings-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body class="login-mode">
+
+<div class="login-shell" id="login-shell">
+    <div class="card login-card" id="connect-section">
+        <span class="login-chip">GMSRISK</span>
+        <h1 class="login-title">TIMS JVM Mapper</h1>
+        <p class="login-subtitle">Sign in with your ADS ID and GitHub token to manage server mappings and monitor cache metrics.</p>
+
+        <label for="gh-owner">ADS ID</label>
+        <input type="text" id="gh-owner" placeholder="Enter your ADS ID">
+
+        <label for="gh-token">GitHub Token (PAT with 'repo' scope)</label>
+        <input type="password" id="gh-token" placeholder="Enter your GitHub token">
+
+        <div class="btn-group">
+            <button class="btn-primary" onclick="loadMappings()">Login & Load</button>
+            <button class="btn-primary" onclick="testToken()">Test Token</button>
+        </div>
+        <p id="token-check"></p>
+
+        <hr style="margin: 18px 0; border: none; border-top: 1px solid #e1e4e8;">
+        <p style="font-size:13px;color:#64748b;margin-bottom:10px;">
+            <strong>Testing / Offline?</strong> Skip GitHub login and load directly from the local <code>jvm_mappings.json</code> file.
+        </p>
+        <button class="btn-dry-run" style="width:100%;padding:11px 16px;font-size:14px;" onclick="loadMappingsLocal()">
+            ⚡ Dry Run (Local File – No Login)
+        </button>
+    </div>
+</div>
+
+<div class="container app-shell hidden" id="app-shell">
+    <div class="card home-screen hidden" id="editor-section">
+        <div class="home-tabs-wrap">
+            <div class="home-tab-copy">
+                <h3>Operations Workspace</h3>
+                <p>Use the tabs below to move between JVM mappings and cache metrics.</p>
+                <div id="dry-run-badge" class="dry-run-badge hidden">DRY RUN MODE — Reading &amp; writing directly to local jvm_mappings.json (no GitHub)</div>
+            </div>
+
+            <div class="section-tabs">
+                <button class="section-tab active" data-section="jvm-mappings">JVM Mappings</button>
+                <button class="section-tab" data-section="cache-metrics">Cache Metrics</button>
+                <button class="section-tab" data-section="patching-validator">Patching Validator</button>
+            </div>
+        </div>
+
+        <div id="jvm-mappings-content" class="section-content active home-panel">
+            <div class="mappings-toolbar">
+                <div class="mappings-toolbar-copy">
+                    <h3>JVM Mappings</h3>
+                    <p>Manage server-to-application mappings and save changes back to GitHub.</p>
+                </div>
+
+                <div class="mode-controls">
+                    <div class="mode-toggle">
+                        <span id="mode-label">View Only</span>
+                        <label class="toggle-switch" aria-label="Toggle edit mode">
+                            <input type="checkbox" id="edit-toggle" onchange="toggleEditMode(this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <select id="mapping-profile-select" class="mode-selector" aria-label="Environment selector"></select>
+                </div>
+            </div>
+
+            <div class="mapping-filter-bar">
+                <!-- App (row) filter + sort -->
+                <label for="filter-apps">🔍 Apps:</label>
+                <input type="text" id="filter-apps" placeholder="Filter app rows…" oninput="renderSelectedProfile()" autocomplete="off">
+                <button class="sort-btn" id="sort-apps-az"  onclick="setAppSort('az')"  title="Sort apps A → Z">A→Z</button>
+                <button class="sort-btn" id="sort-apps-za"  onclick="setAppSort('za')"  title="Sort apps Z → A">Z→A</button>
+                <button class="sort-btn" id="sort-apps-clr" onclick="setAppSort('')"    title="Clear app sort">✕ Sort</button>
+
+                <div class="filter-divider"></div>
+
+                <!-- Server (column) filter + sort -->
+                <label for="filter-servers">🔍 Servers:</label>
+                <input type="text" id="filter-servers" placeholder="Filter server columns…" oninput="renderSelectedProfile()" autocomplete="off">
+                <button class="sort-btn" id="sort-srv-az"  onclick="setServerSort('az')"  title="Sort servers A → Z">A→Z</button>
+                <button class="sort-btn" id="sort-srv-za"  onclick="setServerSort('za')"  title="Sort servers Z → A">Z→A</button>
+                <button class="sort-btn" id="sort-srv-clr" onclick="setServerSort('')"    title="Clear server sort">✕ Sort</button>
+            </div>
+
+            <div id="servers-container"></div>
+            <div class="mappings-actions">
+                <button class="btn-primary" onclick="exportMappings()">Export to Excel</button>
+                <button class="btn-secondary edit-only" id="save-btn" onclick="saveMappings()">Save Changes to GitHub</button>
+            </div>
+            <p id="status-msg"></p>
+        </div>
+
+        <div id="cache-metrics-content" class="section-content cache-metrics-panel">
+            <div id="cache-root"></div>
+        </div>
+
+        <div id="patching-validator-content" class="section-content home-panel">
+            <div class="mappings-toolbar">
+                <div class="mappings-toolbar-copy">
+                    <h3>Patching Validator</h3>
+                    <p>Paste ps output before and after patching to validate Java applications.</p>
+                </div>
+            </div>
+
+            <div class="validation-tabs">
+                <button class="validation-tab-btn active" onclick="switchValidationTab('basic')">Basic Validation</button>
+                <button class="validation-tab-btn" onclick="switchValidationTab('advanced')">Advanced Validation (with JVM Map)</button>
+            </div>
+
+            <!-- BASIC VALIDATION TAB -->
+            <div id="basic-validation-tab" class="validation-tab-content active">
+                <div style="background: #f0f5ff; border-left: 3px solid #0366d6; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px; font-size: 13px; color: #334155;">
+                    <strong>How to use:</strong> Run <code>ps -ef | grep java</code> before and after patching, paste the output below, then validate.
+                </div>
+
+                <div class="patching-input-section">
+                    <div class="patching-input-group">
+                        <label for="beforeInput" style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Before Patching</label>
+                        <textarea id="beforeInput" class="patching-textarea" placeholder="Paste ps output here..."></textarea>
+                    </div>
+
+                    <div class="patching-input-group">
+                        <label for="afterInput" style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">After Patching</label>
+                        <textarea id="afterInput" class="patching-textarea" placeholder="Paste ps output here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="patching-button-group">
+                    <button class="btn-primary" onclick="validatePatching()">Validate Patching</button>
+                    <button class="btn-secondary" onclick="clearPatchingInputs()">Clear All</button>
+                </div>
+
+                <div class="patching-loading" id="patchingLoading">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 10px; color: #666;">Analyzing processes...</p>
+                </div>
+
+                <div class="patching-report-container" id="patchingReportContainer">
+                    <div class="patching-report-header">
+                        PATCHING VALIDATION REPORT
+                    </div>
+                    <div class="patching-report-content" id="patchingReportContent"></div>
+                </div>
+            </div>
+
+            <!-- ADVANCED VALIDATION TAB -->
+            <div id="advanced-validation-tab" class="validation-tab-content">
+                <div style="background: #f0f5ff; border-left: 3px solid #0366d6; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px; font-size: 13px; color: #334155;">
+                    <strong>How to use:</strong> Paste ps output after patching. System will identify server and validate against JVM mappings.
+                </div>
+
+                <div class="patching-input-group" style="margin-bottom: 20px;">
+                    <label for="advancedPsInput" style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">After Patching PS Output</label>
+                    <textarea id="advancedPsInput" class="patching-textarea" placeholder="Paste ps -ef | grep java output here..."></textarea>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label for="dataCenterSelect" style="font-size: 14px; font-weight: 600; margin-bottom: 8px; display: block;">Select Data Center</label>
+                            <select id="dataCenterSelect" class="dropdown" onchange="filterServersByDataCenter()">
+                                <option value="">-- Select Data Center --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="serverSelect" style="font-size: 14px; font-weight: 600; margin-bottom: 8px; display: block;">Select Server</label>
+                            <select id="serverSelect" class="dropdown">
+                                <option value="">-- Select Server --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="serverInfo" style="font-size: 13px; color: #64748b; margin-top: 8px;"></div>
+                </div>
+
+                <div class="patching-button-group">
+                    <button class="btn-primary" onclick="validateWithJVMMapping()">Validate with JVM Mapping</button>
+                    <button class="btn-secondary" onclick="clearAdvancedValidation()">Clear All</button>
+                </div>
+
+                <div class="patching-loading" id="advancedLoading">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 10px; color: #666;">Validating against JVM mappings...</p>
+                </div>
+
+                <div class="patching-report-container" id="advancedReportContainer">
+                    <div class="patching-report-header">
+                        JVM MAPPING VALIDATION REPORT
+                    </div>
+                    <div class="patching-report-content" id="advancedReportContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cell-meta-modal" class="meta-modal hidden">
+    <div class="meta-modal-card">
+        <div class="meta-modal-header">
+            <h3 id="meta-modal-title">Cell Details</h3>
+            <button type="button" class="meta-close-btn" onclick="closeCellMetaModal()">x</button>
+        </div>
+
+        <label for="meta-script-path">Start Script Path</label>
+        <input type="text" id="meta-script-path" placeholder="/opt/apps/start.sh">
+
+        <label for="meta-user">User <span style="color:#cf222e;">*</span></label>
+        <select id="meta-user" onchange="clearUserError()">
+            <option value="">— select user —</option>
+            <option value="none">none</option>
+            <option value="gridgain">gridgain</option>
+            <option value="gmsrisk">gmsrisk</option>
+        </select>
+        <p id="meta-user-error" style="display:none;color:#cf222e;font-size:12px;font-weight:600;margin:-10px 0 12px;">Please select a user before saving.</p>
+
+        <div class="meta-modal-row">
+            <label for="meta-autostart">Auto Start</label>
+            <div class="meta-autostart-toggle">
+                <span id="meta-autostart-label" style="font-size:13px;color:#64748b;">Off</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="meta-autostart" onchange="document.getElementById('meta-autostart-label').textContent = this.checked ? 'On' : 'Off'">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <label for="meta-start-message">Start Message (alert box)</label>
+        <input type="text" id="meta-start-message" placeholder="Message to display on start (leave blank for null)">
+
+        <label for="meta-comments">Comments</label>
+        <textarea id="meta-comments" placeholder="Add comments"></textarea>
+
+        <div class="meta-modal-actions">
+            <button type="button" class="secondary-btn" onclick="closeCellMetaModal()">Close</button>
+            <button type="button" id="meta-save-btn" class="btn-primary" onclick="saveCellMetaModal()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Section Tab Switching
+    let cacheAppInitialized = false;
+
+    function switchHomeSection(section) {
+        document.querySelectorAll('.section-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.section === section);
+        });
+
+        document.querySelectorAll('.section-content').forEach(content => {
+            content.classList.toggle('active', content.id === `${section}-content`);
+        });
+
+        if (section === 'cache-metrics' && !cacheAppInitialized) {
+            initCacheDashboard();
+            cacheAppInitialized = true;
+        }
+    }
+
+    document.querySelectorAll('.section-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            switchHomeSection(e.currentTarget.dataset.section);
+        });
+    });
+
+    /**
+     * Patching Validator Classes and Functions
+     */
+
+        // JavaProcess Class
+    class JavaProcess {
+        constructor(pid, appName, user, fullCommand) {
+            this.pid = pid;
+            this.appName = appName;
+            this.user = user;
+            this.fullCommand = fullCommand;
+        }
+
+        getPid() { return this.pid; }
+        getAppName() { return this.appName; }
+        getUser() { return this.user; }
+        getFullCommand() { return this.fullCommand; }
+
+        equals(other) {
+            if (!other || !(other instanceof JavaProcess)) return false;
+            return this.appName.toLowerCase() === other.appName.toLowerCase();
+        }
+
+        hashCode() {
+            return this.appName.toLowerCase().split('').reduce((a, b) => {
+                a = ((a << 5) - a) + b.charCodeAt(0);
+                return a & a;
+            }, 0);
+        }
+
+        toString() {
+            return `PID: ${this.pid} | APP: ${this.appName} | USER: ${this.user}`;
+        }
+    }
+
+    // JavaProcessParser Class - Enhanced with multi-identifier support
+    class JavaProcessParser {
+        constructor() {
+            this.APP_NAME_PATTERN = /-D[Aa][Pp][Pp]_[Nn][Aa][Mm][Ee][=:](\w[\w.-]*)/;
+            this.IGNITE_HOME_PATTERN = /-DIGNITE_HOME=([^\s]+)/;
+            this.CONFIG_PATTERN = /--config\s+([^\s]+)/;
+        }
+
+        parse(psOutput) {
+            const processes = new Set();
+            if (!psOutput || psOutput.trim() === '') return processes;
+
+            const lines = psOutput.split('\n');
+            for (const line of lines) {
+                const trimmedLine = line.trim();
+                if (trimmedLine === '' || trimmedLine.includes('grep')) continue;
+
+                const process = this.parseLine(trimmedLine);
+                if (process) processes.add(process);
+            }
+            return processes;
+        }
+
+        parseLine(line) {
+            try {
+                const parts = line.split(/\s+/);
+                if (parts.length < 8) return null;
+
+                const user = parts[0];
+                const pid = parts[1];
+                const fullCommand = parts.slice(7).join(' ');
+                const appName = this.extractAppName(fullCommand);
+
+                if (!appName || appName === '') return null;
+                return new JavaProcess(pid, appName, user, fullCommand);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        extractAppName(command) {
+            // Method 1: Check for -DAPP_NAME (standard)
+            let match = command.match(this.APP_NAME_PATTERN);
+            if (match && match[1]) return match[1];
+
+            // Method 2: Check for -DIGNITE_HOME (GridGain services)
+            match = command.match(this.IGNITE_HOME_PATTERN);
+            if (match && match[1]) {
+                const igniteHome = match[1];
+                const gridGainName = this.extractGridGainName(igniteHome);
+                if (gridGainName) {
+                    // If it's an agent, try to append RAM/RISK from config
+                    if (gridGainName.includes('web-console-agent')) {
+                        const configMatch = command.match(this.CONFIG_PATTERN);
+                        if (configMatch && configMatch[1]) {
+                            const configSuffix = this.extractConfigSuffix(configMatch[1]);
+                            return configSuffix ? `${gridGainName}-${configSuffix}` : gridGainName;
+                        }
+                    }
+                    return gridGainName;
+                }
+            }
+
+            // Method 3: Check for --config (config-based identification)
+            match = command.match(this.CONFIG_PATTERN);
+            if (match && match[1]) {
+                const configName = this.extractConfigSuffix(match[1]);
+                if (configName) return `webagent-${configName}`;
+            }
+
+            return null;
+        }
+
+        extractGridGainName(igniteHomePath) {
+            // Extract meaningful name from IGNITE_HOME path
+            // Examples:
+            // /amex/gridgain-RAM/gridgain-binary → gridgain-RAM
+            // /amex/gridgain-RISK/gridgain-binary → gridgain-RISK
+            // /amex/webconsole/gridgain-web-console-on-premise-2021.04.00 → gridgain-web-console
+            // /amex/webconsole/gridgain-web-console-agent-2021.04.00 → gridgain-web-console-agent
+
+            const parts = igniteHomePath.split('/').filter(p => p.length > 0);
+
+            // If last part is 'gridgain-binary', the service name is in the parent directory
+            if (parts[parts.length - 1] === 'gridgain-binary' && parts.length > 1) {
+                return parts[parts.length - 2]; // Return parent directory (gridgain-RAM or gridgain-RISK)
+            }
+
+            // Otherwise, find folder containing 'gridgain'
+            for (let i = parts.length - 1; i >= 0; i--) {
+                const part = parts[i];
+                if (part.includes('gridgain')) {
+                    // Remove version numbers and clean up
+                    let name = part
+                        .replace(/-\d{4}\.\d{2}\.\d{2}$/, '') // Remove version like -2021.04.00
+                        .replace(/-on-premise$/, ''); // Remove -on-premise suffix
+                    return name || null;
+                }
+            }
+            return null;
+        }
+
+        extractConfigSuffix(configPath) {
+            // Extract RAM or RISK from config file names
+            // Examples:
+            // /amex/webconsole/webagent/webagent-ram.properties → RAM
+            // /amex/webconsole/webagent/webagent-risk.properties → RISK
+
+            const fileName = configPath.split('/').pop() || '';
+
+            if (fileName.includes('ram')) return 'RAM';
+            if (fileName.includes('risk')) return 'RISK';
+
+            // Extract anything after webagent- and before .properties
+            const match = fileName.match(/webagent-(\w+)/);
+            if (match && match[1]) return match[1].toUpperCase();
+
+            return null;
+        }
+    }
+
+    // ComparisonResult Class
+    class ComparisonResult {
+        constructor(matchingApps, missingApps, newApps) {
+            this.matchingApps = matchingApps;
+            this.missingApps = missingApps;
+            this.newApps = newApps;
+        }
+
+        getMatchingApps() { return this.matchingApps; }
+        getMissingApps() { return this.missingApps; }
+        getNewApps() { return this.newApps; }
+    }
+
+    // ProcessComparator Class
+    class ProcessComparator {
+        constructor(beforeProcesses, afterProcesses) {
+            this.beforeProcesses = beforeProcesses || new Set();
+            this.afterProcesses = afterProcesses || new Set();
+            this.result = this.compare();
+        }
+
+        compare() {
+            const beforeApps = new Set(
+                Array.from(this.beforeProcesses).map(p => p.getAppName().toLowerCase())
+            );
+            const afterApps = new Set(
+                Array.from(this.afterProcesses).map(p => p.getAppName().toLowerCase())
+            );
+
+            const missing = Array.from(this.beforeProcesses).filter(p =>
+                !afterApps.has(p.getAppName().toLowerCase())
+            );
+
+            const newApps = Array.from(this.afterProcesses).filter(p =>
+                !beforeApps.has(p.getAppName().toLowerCase())
+            );
+
+            const matching = Array.from(this.beforeProcesses).filter(p =>
+                afterApps.has(p.getAppName().toLowerCase())
+            );
+
+            return new ComparisonResult(new Set(matching), new Set(missing), new Set(newApps));
+        }
+
+        getResult() { return this.result; }
+
+        isHealthy() {
+            return this.result.getMissingApps().size === 0 && this.result.getNewApps().size === 0;
+        }
+
+        generateReport() {
+            let report = '';
+            report += '╔════════════════════════════════════════════════════════════════╗\n';
+            report += '║           PATCHING VALIDATION REPORT                           ║\n';
+            report += '╚════════════════════════════════════════════════════════════════╝\n\n';
+
+            report += `Before Patching: ${this.beforeProcesses.size} apps detected\n`;
+            report += `After Patching:  ${this.afterProcesses.size} apps detected\n\n`;
+
+            if (this.result.getMatchingApps().size > 0) {
+                report += '✓ MATCHING APPS (Both before & after):\n';
+                report += '─────────────────────────────────────────\n';
+                Array.from(this.result.getMatchingApps())
+                    .sort((a, b) => a.getAppName().localeCompare(b.getAppName()))
+                    .forEach(p => {
+                        report += `  ✓ ${p.getAppName()} (PID: ${p.getPid()})\n`;
+                    });
+                report += '\n';
+            }
+
+            if (this.result.getMissingApps().size > 0) {
+                report += '✗ MISSING APPS (Were running before, NOT after):\n';
+                report += '─────────────────────────────────────────\n';
+                Array.from(this.result.getMissingApps())
+                    .sort((a, b) => a.getAppName().localeCompare(b.getAppName()))
+                    .forEach(p => {
+                        report += `  ✗ ${p.getAppName()} (PID: ${p.getPid()})\n`;
+                    });
+                report += '\n';
+            }
+
+            if (this.result.getNewApps().size > 0) {
+                report += '⚠ NEW APPS (Running after, WERE NOT before):\n';
+                report += '─────────────────────────────────────────\n';
+                Array.from(this.result.getNewApps())
+                    .sort((a, b) => a.getAppName().localeCompare(b.getAppName()))
+                    .forEach(p => {
+                        report += `  ⚠ ${p.getAppName()} (PID: ${p.getPid()})\n`;
+                    });
+                report += '\n';
+            }
+
+            report += '╔════════════════════════════════════════════════════════════════╗\n';
+            if (this.isHealthy()) {
+                report += '║  ✓ STATUS: HEALTHY - All apps restarted successfully!        ║\n';
+            } else {
+                report += '║  ✗ STATUS: ISSUES DETECTED - Review above for details        ║\n';
+            }
+            report += '╚════════════════════════════════════════════════════════════════╝\n';
+
+            return report;
+        }
+    }
+
+    // Main Patching Validator Functions
+    function validatePatching() {
+        const beforeInput = document.getElementById('beforeInput').value.trim();
+        const afterInput = document.getElementById('afterInput').value.trim();
+
+        if (!beforeInput) {
+            alert('⚠️ Please paste the "Before Patching" process output');
+            return;
+        }
+
+        if (!afterInput) {
+            alert('⚠️ Please paste the "After Patching" process output');
+            return;
+        }
+
+        document.getElementById('patchingLoading').style.display = 'block';
+
+        setTimeout(() => {
+            try {
+                const parser = new JavaProcessParser();
+                const beforeProcesses = parser.parse(beforeInput);
+                const afterProcesses = parser.parse(afterInput);
+
+                if (beforeProcesses.size === 0 && afterProcesses.size === 0) {
+                    alert('⚠️ No Java processes with -DAPP_NAME parameter found in either input.\n\nMake sure the output includes -DAPP_NAME=<app_name> in the command line.');
+                    document.getElementById('patchingLoading').style.display = 'none';
+                    return;
+                }
+
+                const comparator = new ProcessComparator(beforeProcesses, afterProcesses);
+                const report = comparator.generateReport();
+
+                const reportContainer = document.getElementById('patchingReportContainer');
+                const reportContent = document.getElementById('patchingReportContent');
+
+                reportContent.textContent = report;
+                reportContainer.style.display = 'block';
+
+                if (comparator.isHealthy()) {
+                    reportContent.className = 'patching-report-content status-healthy';
+                } else {
+                    reportContent.className = 'patching-report-content status-issues';
+                }
+
+                document.getElementById('patchingLoading').style.display = 'none';
+                reportContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Error during validation: ' + error.message);
+                document.getElementById('patchingLoading').style.display = 'none';
+            }
+        }, 500);
+    }
+
+    function clearPatchingInputs() {
+        document.getElementById('beforeInput').value = '';
+        document.getElementById('afterInput').value = '';
+        document.getElementById('patchingReportContainer').style.display = 'none';
+        document.getElementById('beforeInput').focus();
+    }
+
+    // ===== ADVANCED VALIDATION FUNCTIONS =====
+
+    function switchValidationTab(tab) {
+        // Update tab buttons
+        document.querySelectorAll('.validation-tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Update tab content
+        document.querySelectorAll('.validation-tab-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(tab + '-validation-tab').classList.add('active');
+
+        // Load servers for advanced tab
+        if (tab === 'advanced') {
+            populateServerList();
+        }
+    }
+
+    function populateServerList() {
+        const mappingsData = localStorage.getItem('jvm_mappings');
+        if (!mappingsData) {
+            alert('No JVM mappings found. Please load JVM mappings first.');
+            return;
+        }
+
+        try {
+            const mappings = JSON.parse(mappingsData);
+            const profiles = mappings.__profiles__ || {};
+
+            // Get all profile names (like "risk-ipc1", "risk-ipc2", "ram-ipc1", etc)
+            const profileNames = Object.keys(profiles).sort();
+
+            // Populate data center dropdown with profile names
+            const dataCenterSelect = document.getElementById('dataCenterSelect');
+            dataCenterSelect.innerHTML = '<option value="">-- Select Data Center --</option>';
+
+            profileNames.forEach(profile => {
+                const option = document.createElement('option');
+                option.value = profile;
+                option.textContent = profile.toUpperCase();
+                dataCenterSelect.appendChild(option);
+            });
+
+            // Store profiles for later use
+            window.profilesData = profiles;
+            window.profileNames = profileNames;
+
+            // Clear server select
+            const serverSelect = document.getElementById('serverSelect');
+            serverSelect.innerHTML = '<option value="">-- Select Server --</option>';
+
+        } catch (error) {
+            console.error('Error populating server list:', error);
+            alert('Error loading servers from JVM mappings');
+        }
+    }
+
+    function filterServersByDataCenter() {
+        const dataCenterSelect = document.getElementById('dataCenterSelect');
+        const serverSelect = document.getElementById('serverSelect');
+        const selectedProfile = dataCenterSelect.value;
+
+        // Clear server select
+        serverSelect.innerHTML = '<option value="">-- Select Server --</option>';
+
+        if (!selectedProfile || !window.profilesData) {
+            return;
+        }
+
+        // Get all servers for this profile
+        const profileData = window.profilesData[selectedProfile];
+        if (!profileData) {
+            return;
+        }
+
+        // Extract server names from profile
+        const servers = Object.keys(profileData).sort();
+
+        // Populate server dropdown
+        servers.forEach(server => {
+            const option = document.createElement('option');
+            option.value = server;
+            option.textContent = server;
+            serverSelect.appendChild(option);
+        });
+    }
+
+    function validateWithJVMMapping() {
+        const psOutput = document.getElementById('advancedPsInput').value.trim();
+        const selectedProfile = document.getElementById('dataCenterSelect').value;
+        const selectedServer = document.getElementById('serverSelect').value;
+
+        if (!psOutput) {
+            alert('Please paste the PS output after patching');
+            return;
+        }
+
+        if (!selectedProfile) {
+            alert('Please select a Data Center');
+            return;
+        }
+
+        if (!selectedServer) {
+            alert('Please select a Server');
+            return;
+        }
+
+        const mappingsData = localStorage.getItem('jvm_mappings');
+        if (!mappingsData) {
+            alert('JVM mappings not found. Please load JVM mappings first.');
+            return;
+        }
+
+        document.getElementById('advancedLoading').style.display = 'block';
+
+        setTimeout(() => {
+            try {
+                // Parse PS output
+                const parser = new JavaProcessParser();
+                const runningApps = parser.parse(psOutput);
+
+                if (runningApps.size === 0) {
+                    alert('No Java processes found in PS output');
+                    document.getElementById('advancedLoading').style.display = 'none';
+                    return;
+                }
+
+                // Get mapped apps for this server from the selected profile
+                const mappings = JSON.parse(mappingsData);
+                const profiles = mappings.__profiles__ || {};
+                const profileData = profiles[selectedProfile] || {};
+                const serverData = profileData[selectedServer] || {};
+                const mappedApps = new Map();
+
+                // Collect all apps marked as enabled/running for this server in THIS profile
+                Object.entries(serverData).forEach(([appName, appConfig]) => {
+                    if (appConfig && appConfig.enabled !== false) {
+                        mappedApps.set(appName.toLowerCase(), {
+                            name: appName,
+                            profile: selectedProfile,
+                            enabled: appConfig.enabled !== false
+                        });
+                    }
+                });
+
+                // Compare running apps with mapped apps
+                const runningAppNames = new Set(
+                    Array.from(runningApps).map(p => p.getAppName().toLowerCase())
+                );
+
+                const mappedAppNames = new Set(mappedApps.keys());
+
+                // Find discrepancies
+                const expectedButNotRunning = Array.from(mappedAppNames).filter(
+                    app => !runningAppNames.has(app)
+                );
+
+                const runningButNotMapped = Array.from(runningAppNames).filter(
+                    app => !mappedAppNames.has(app)
+                );
+
+                const properlyRunning = Array.from(runningAppNames).filter(
+                    app => mappedAppNames.has(app)
+                );
+
+                // Generate report
+                let report = '';
+                report += '╔════════════════════════════════════════════════════════════════╗\n';
+                report += '║           JVM MAPPING VALIDATION REPORT                        ║\n';
+                report += '╚════════════════════════════════════════════════════════════════╝\n\n';
+
+                report += `Profile: ${selectedProfile.toUpperCase()}\n`;
+                report += `Server: ${selectedServer}\n`;
+                report += `Mapped Apps (from JVM config): ${mappedApps.size}\n`;
+                report += `Running Apps (from ps output): ${runningApps.size}\n\n`;
+
+                if (properlyRunning.length > 0) {
+                    report += '✓ PROPERLY RUNNING (Mapped & Running):\n';
+                    report += '─────────────────────────────────────────\n';
+                    properlyRunning.sort().forEach(app => {
+                        const appObj = Array.from(runningApps).find(p => p.getAppName().toLowerCase() === app);
+                        report += `  ✓ ${mappedApps.get(app).name} (PID: ${appObj.getPid()})\n`;
+                    });
+                    report += '\n';
+                }
+
+                if (expectedButNotRunning.length > 0) {
+                    report += '✗ EXPECTED BUT NOT RUNNING (Mapped but Missing):\n';
+                    report += '─────────────────────────────────────────\n';
+                    expectedButNotRunning.sort().forEach(app => {
+                        report += `  ✗ ${mappedApps.get(app).name}\n`;
+                    });
+                    report += '\n';
+                }
+
+                if (runningButNotMapped.length > 0) {
+                    report += '⚠ RUNNING BUT NOT MAPPED (Unexpected in mappings):\n';
+                    report += '─────────────────────────────────────────\n';
+                    runningButNotMapped.sort().forEach(app => {
+                        const appObj = Array.from(runningApps).find(p => p.getAppName().toLowerCase() === app);
+                        report += `  ⚠ ${appObj.getAppName()} (PID: ${appObj.getPid()})\n`;
+                    });
+                    report += '\n';
+                }
+
+                // Summary
+                report += '╔════════════════════════════════════════════════════════════════╗\n';
+                const isHealthy = expectedButNotRunning.length === 0 && runningButNotMapped.length === 0;
+                if (isHealthy) {
+                    report += '║  ✓ STATUS: VALIDATED - All mapped apps running!              ║\n';
+                } else {
+                    report += '║  ✗ STATUS: ISSUES FOUND - Review discrepancies above         ║\n';
+                }
+                report += '╚════════════════════════════════════════════════════════════════╝\n';
+
+                // Display report
+                const reportContent = document.getElementById('advancedReportContent');
+                const reportContainer = document.getElementById('advancedReportContainer');
+
+                reportContent.textContent = report;
+                reportContainer.style.display = 'block';
+
+                if (isHealthy) {
+                    reportContent.className = 'patching-report-content status-healthy';
+                } else {
+                    reportContent.className = 'patching-report-content status-issues';
+                }
+
+                document.getElementById('advancedLoading').style.display = 'none';
+                reportContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error during validation: ' + error.message);
+                document.getElementById('advancedLoading').style.display = 'none';
+            }
+        }, 500);
+    }
+
+    function clearAdvancedValidation() {
+        document.getElementById('advancedPsInput').value = '';
+        document.getElementById('serverSelect').value = '';
+        document.getElementById('advancedReportContainer').style.display = 'none';
+        document.getElementById('serverInfo').textContent = '';
+        document.getElementById('advancedPsInput').focus();
+    }
+
+    // Allow keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            const activeTab = document.querySelector('.section-tab.active');
+            if (activeTab && activeTab.dataset.section === 'patching-validator') {
+                validatePatching();
+            }
+        }
+    });
+</script>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // API Map
+    const API_MAP = {
+        risk: {
+            ipc1: "https://merchantpaymentrisk-socaccume1.aexp.com/cache/v1/submon/cassandra/cacheCount",
+            ipc2: "https://merchantpaymentrisk-socaccume2.aexp.com/cache/v1/submon/cassandra/cacheCount",
+            bom: "https://merchantpaymentrisk-socaccume1.in.aexp.com/cache/v1/submon/cassandra/cacheCount",
+            blr: "https://merchantpaymentrisk-socaccume2.in.aexp.com/cache/v1/submon/cassandra/cacheCount"
+        },
+        ram: {
+            ipc1: "https://authload2.aexp.com/gms/v1/authorizations/count/*",
+            ipc2: "https://authload1.aexp.com/gms/v1/authorizations/count/*",
+            bom: "https://merchantpaymentrisk-socaccume1.in.aexp.com/cache/v1/submon/cassandra/cacheCount",
+            blr: "https://merchantpaymentrisk-socaccume2.in.aexp.com/cache/v1/submon/cassandra/cacheCount"
+        }
+    };
+
+    async function fetchIPC(source, env) {
+        const url = API_MAP[source]?.[env];
+        if (!url) throw new Error(`Invalid source/env: ${source} - ${env}`);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (source === "ram") {
+            return (data.cacheSummary || []).map((item) => ({
+                cacheName: item.cacheName,
+                count: item.cacheCount
+            }));
+        }
+        return data;
+    }
+
+    // Spinner
+    const Spinner = () => (
+        <div className="global-loader">
+            <div className="spinner"></div>
+        </div>
+    );
+
+    // Landing Page
+    const GROUPS = [
+        {
+            title: "RISK",
+            source: "risk",
+            items: [
+                { name: "IPC1", key: "ipc1" },
+                { name: "IPC2", key: "ipc2" },
+                { name: "BOM", key: "bom" },
+                { name: "BLR", key: "blr" }
+            ],
+            compare: [
+                { name: "IPC1 vs IPC2", key: ["ipc1", "ipc2"], type: "compare" },
+                { name: "BOM vs BLR", key: ["bom", "blr"], type: "compare" }
+            ]
+        },
+        {
+            title: "RAM",
+            source: "ram",
+            items: [
+                { name: "IPC1", key: "ipc1" },
+                { name: "IPC2", key: "ipc2" },
+                { name: "BOM", key: "bom" },
+                { name: "BLR", key: "blr" }
+            ],
+            compare: [
+                { name: "IPC1 vs IPC2", key: ["ipc1", "ipc2"], type: "compare" },
+                { name: "BOM vs BLR", key: ["bom", "blr"], type: "compare" }
+            ]
+        }
+    ];
+
+    const LandingPage = ({ setResponseData, setLoading, setError, setPatchMode }) => {
+        const [activeBtn, setActiveBtn] = useState(null);
+
+        const handleClick = async (env, source) => {
+            const uniqueKey = `${source}-${env.name}`;
+            setActiveBtn(uniqueKey);
+            setLoading(true);
+            setError(null);
+
+            try {
+                if (env.type === "compare") {
+                    const [res1, res2] = await Promise.all([
+                        fetchIPC(source, env.key[0]),
+                        fetchIPC(source, env.key[1])
+                    ]);
+                    setResponseData({
+                        type: "compare",
+                        source,
+                        data1: res1,
+                        data2: res2,
+                        env1: env.key[0],
+                        env2: env.key[1]
+                    });
+                } else {
+                    const res = await fetchIPC(source, env.key);
+                    setResponseData({
+                        type: "single",
+                        source,
+                        data: res,
+                        env: env.key
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+                setError("Failed to fetch data.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const handlePatchClick = (source, env) => {
+            setPatchMode({ source, env });
+        };
+
+        return (
+            <div className="landing-root">
+                <div className="landing-container">
+                    <header className="landing-header">
+                        <h1>Cache Monitoring Dashboard</h1>
+                        <p>Select system and environment</p>
+                    </header>
+
+                    <div className="group-grid">
+                        {GROUPS.map((group) => (
+                            <div key={group.title} className="group-card">
+                                <h2 className="group-title">
+                                    {group.title}
+                                    <span className="status-badge healthy">Healthy</span>
+                                </h2>
+
+                                <div className="env-grid-2x2">
+                                    {group.items.map((env) => {
+                                        const key = `${group.source}-${env.name}`;
+                                        return (
+                                            <button
+                                                key={env.name}
+                                                className={`env-card ${activeBtn === key ? "active" : ""}`}
+                                                onClick={() => handleClick(env, group.source)}
+                                            >
+                                                {env.name}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                <div className="compare-row">
+                                    {group.compare.map((env) => (
+                                        <button
+                                            key={env.name}
+                                            className="compare-card"
+                                            onClick={() => handleClick(env, group.source)}
+                                        >
+                                            {env.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="section-divider"></div>
+
+                    <h2 className="patch-title">Patch Validation</h2>
+
+                    <div className="group-grid">
+                        {GROUPS.map((group) => (
+                            <div key={group.title + "-patch"} className="group-card">
+                                <h2 className="group-title">
+                                    {group.title} PATCHING
+                                    <span className="status-badge warning">Idle</span>
+                                </h2>
+
+                                <div className="env-grid-2x2">
+                                    {["ipc1", "ipc2", "bom", "blr"].map((env) => (
+                                        <button
+                                            key={`${group.source}-${env}`}
+                                            className="env-card"
+                                            onClick={() => handlePatchClick(group.source, env)}
+                                        >
+                                            {env.toUpperCase()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    // Results Page
+    const ResultsPage = ({ data, onBack, setResponseData }) => {
+        const isCompare = data?.type === "compare";
+        const list = isCompare ? data.data1 : data.data;
+        const list2 = isCompare ? data.data2 : null;
+
+        const [search, setSearch] = useState("");
+        const [selectedCache, setSelectedCache] = useState(list?.[0]?.cacheName || "");
+        const [lastUpdated, setLastUpdated] = useState(new Date());
+
+        if (!list || list.length === 0) return null;
+
+        const selectedItem = !isCompare
+            ? list.find((item) => item.cacheName === selectedCache)
+            : null;
+
+        const mismatches = isCompare
+            ? list
+                .map((item) => {
+                    const match = list2.find((d) => d.cacheName === item.cacheName);
+                    if (!match) return null;
+                    const diff = item.count - match.count;
+                    return {
+                        cacheName: item.cacheName,
+                        count: item.count,
+                        matchCount: match.count,
+                        diff
+                    };
+                })
+                .filter((item) => item && item.diff !== 0)
+                .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff))
+            : [];
+
+        useEffect(() => {
+            const interval = setInterval(async () => {
+                try {
+                    if (isCompare) {
+                        const [res1, res2] = await Promise.all([
+                            fetchIPC(data.source, data.env1),
+                            fetchIPC(data.source, data.env2)
+                        ]);
+                        setResponseData({
+                            type: "compare",
+                            source: data.source,
+                            data1: res1,
+                            data2: res2,
+                            env1: data.env1,
+                            env2: data.env2
+                        });
+                    } else {
+                        const updated = await fetchIPC(data.source, data.env);
+                        setResponseData({
+                            type: "single",
+                            source: data.source,
+                            data: updated,
+                            env: data.env
+                        });
+                    }
+                    setLastUpdated(new Date());
+                } catch (err) {
+                    console.error("Auto refresh failed", err);
+                }
+            }, 60 * 1000);
+
+            return () => clearInterval(interval);
+        }, [data, isCompare, setResponseData]);
+
+        const handleManualRefresh = async () => {
+            try {
+                const updated = await fetchIPC(data.source, data.env);
+                setResponseData({
+                    type: "single",
+                    source: data.source,
+                    data: updated,
+                    env: data.env
+                });
+                setLastUpdated(new Date());
+            } catch (err) {
+                console.error("Manual refresh failed", err);
+            }
+        };
+
+        const filteredData = list
+            .filter((item) =>
+                item.cacheName.toLowerCase().includes(search.toLowerCase())
+            )
+            .sort((a, b) => b.count - a.count);
+
+        const getHealth = (count) => {
+            if (count === 0) return "low";
+            if (count < 10000) return "medium";
+            return "high";
+        };
+
+        return (
+            <div className="results-root">
+                <div className="results-header">
+                    <div></div>
+                    <h2 className="header-title">
+                        {isCompare ? "Cache Comparison" : "Cache Dashboard"}
+                    </h2>
+                    <div className="header-right">
+                        <div className="env-box">
+                            {isCompare
+                                ? `${data.source.toUpperCase()} : ${data.env1.toUpperCase()} vs ${data.env2.toUpperCase()}`
+                                : `${data.source.toUpperCase()} : ${data.env.toUpperCase()}`}
+                        </div>
+                        <button onClick={onBack} className="back-btn">
+                            ← Back
+                        </button>
+                    </div>
+                </div>
+
+                {!isCompare && (
+                    <div className="kpi-bar">
+                        <div className="kpi-split-card">
+                            <div className="kpi-left">
+                                <label>Cache Name</label>
+                                <select
+                                    value={selectedCache}
+                                    onChange={(e) => setSelectedCache(e.target.value)}
+                                    className="dropdown"
+                                >
+                                    {list.map((item) => (
+                                        <option key={item.cacheName} value={item.cacheName}>
+                                            {item.cacheName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="kpi-right">
+                                <div className="count-header">
+                                    <span>Cache Count</span>
+                                    <button
+                                        className="refresh-icon-btn"
+                                        onClick={handleManualRefresh}
+                                    >
+                                        ⟳
+                                    </button>
+                                </div>
+                                <h1 className={selectedItem?.count === 0 ? "alert" : ""}>
+                                    {selectedItem
+                                        ? selectedItem.count.toLocaleString()
+                                        : "--"}
+                                </h1>
+                                <small>
+                                    Last updated: {lastUpdated.toLocaleTimeString()}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {isCompare && mismatches.length > 0 && (
+                    <div className="alert-banner">
+                        ⚠️ {mismatches.length} mismatches detected
+                    </div>
+                )}
+
+                {isCompare && mismatches.length > 0 && (
+                    <div className="mismatch-section">
+                        <h3>🔴 Mismatched Caches (High → Low)</h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Cache</th>
+                                <th>{data.env1.toUpperCase()}</th>
+                                <th>{data.env2.toUpperCase()}</th>
+                                <th>Diff</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {mismatches.map((item, i) => (
+                                <tr key={i}>
+                                    <td>{item.cacheName}</td>
+                                    <td>{item.count.toLocaleString()}</td>
+                                    <td>{item.matchCount.toLocaleString()}</td>
+                                    <td className={item.diff > 0 ? "diff-pos" : "diff-neg"}>
+                                        {item.diff > 0 ? "+" : ""}
+                                        {item.diff.toLocaleString()}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                <div className="search-bar">
+                    <input
+                        placeholder="Search cache..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+
+                <div className="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Cache Name</th>
+                            {isCompare ? (
+                                <>
+                                    <th>{data.env1.toUpperCase()}</th>
+                                    <th>{data.env2.toUpperCase()}</th>
+                                </>
+                            ) : (
+                                <>
+                                    <th>Count</th>
+                                    <th>Status</th>
+                                </>
+                            )}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {filteredData.map((item, i) => {
+                            if (isCompare) {
+                                const match = list2.find(
+                                    (d) => d.cacheName === item.cacheName
+                                );
+                                return (
+                                    <tr key={i}>
+                                        <td>{item.cacheName}</td>
+                                        <td>{item.count.toLocaleString()}</td>
+                                        <td>{match?.count?.toLocaleString() || "-"}</td>
+                                    </tr>
+                                );
+                            }
+                            return (
+                                <tr key={i}>
+                                    <td>{item.cacheName}</td>
+                                    <td>{item.count.toLocaleString()}</td>
+                                    <td>
+                                            <span className={`status ${getHealth(item.count)}`}>
+                                                {getHealth(item.count)}
+                                            </span>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        );
+    };
+
+    // Patch Session Page
+    const PatchSessionPage = ({ source, env, onBack, goToHistory }) => {
+        const storageKey = `patch-${source}-${env}`;
+
+        const [beforeData, setBeforeData] = useState(null);
+        const [afterData, setAfterData] = useState(null);
+        const [status, setStatus] = useState("idle");
+        const [startTime, setStartTime] = useState(null);
+        const [endTime, setEndTime] = useState(null);
+        const [jvmMappings, setJvmMappings] = useState(null);
+
+        // Load jvm_mappings on mount
+        useEffect(() => {
+            const mappings = JSON.parse(localStorage.getItem("jvm_mappings") || "{}");
+            setJvmMappings(mappings);
+        }, []);
+
+        useEffect(() => {
+            const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+            if (saved) {
+                setBeforeData(saved.beforeData);
+                setAfterData(saved.afterData);
+                setStatus(saved.status);
+                setStartTime(saved.startTime);
+                setEndTime(saved.endTime);
+            }
+        }, [storageKey]);
+
+        useEffect(() => {
+            localStorage.setItem(
+                storageKey,
+                JSON.stringify({
+                    beforeData,
+                    afterData,
+                    status,
+                    startTime,
+                    endTime
+                })
+            );
+        }, [beforeData, afterData, status, startTime, endTime, storageKey]);
+
+        // Create cache object from API data
+        const createCacheObject = (cacheData) => {
+            const cacheObj = {};
+            if (cacheData && Array.isArray(cacheData)) {
+                cacheData.forEach(item => {
+                    cacheObj[item.cacheName] = item.count;
+                });
+            }
+            return cacheObj;
+        };
+
+        // Update jvm_mappings with cache data
+        const updateJVMMappings = (cacheData, phase) => {
+            if (!jvmMappings) return jvmMappings;
+
+            const cacheObj = createCacheObject(cacheData);
+            const updatedMappings = { ...jvmMappings };
+
+            // Store cache data with timestamp for tracking
+            const cacheEntry = {
+                data: cacheObj,
+                timestamp: new Date().toISOString(),
+                source: source,
+                env: env
+            };
+
+            // Initialize cache_sessions if not exists
+            if (!updatedMappings.cache_sessions) {
+                updatedMappings.cache_sessions = {};
+            }
+
+            // Create or overwrite session key with dynamic data
+            const sessionKey = `${source}-${env}`;
+            if (!updatedMappings.cache_sessions[sessionKey]) {
+                updatedMappings.cache_sessions[sessionKey] = {};
+            }
+
+            if (phase === "before") {
+                updatedMappings.cache_sessions[sessionKey].before = cacheEntry;
+                updatedMappings.cache_before = cacheObj; // Keep for backward compatibility
+            } else if (phase === "after") {
+                updatedMappings.cache_sessions[sessionKey].after = cacheEntry;
+                updatedMappings.cache_after = cacheObj; // Keep for backward compatibility
+                
+                // Calculate differences
+                const beforeEntry = updatedMappings.cache_sessions[sessionKey].before;
+                if (beforeEntry) {
+                    const beforeObj = beforeEntry.data;
+                    const diffs = {};
+                    const allKeys = new Set([
+                        ...Object.keys(beforeObj),
+                        ...Object.keys(cacheObj)
+                    ]);
+                    
+                    allKeys.forEach(key => {
+                        const bCount = beforeObj[key] || 0;
+                        const aCount = cacheObj[key] || 0;
+                        const diff = aCount - bCount;
+                        if (diff !== 0) {
+                            diffs[key] = {
+                                before: bCount,
+                                after: aCount,
+                                diff: diff
+                            };
+                        }
+                    });
+                    
+                    updatedMappings.cache_sessions[sessionKey].differences = diffs;
+                    updatedMappings.cache_sessions[sessionKey].status = "completed";
+                }
+            }
+
+            // Store in localStorage
+            localStorage.setItem("jvm_mappings", JSON.stringify(updatedMappings));
+            setJvmMappings(updatedMappings);
+
+            return updatedMappings;
+        };
+
+        // Calculate differences - ONLY show items that changed
+        const getDifferences = () => {
+            if (!beforeData || !afterData) return [];
+
+            const beforeObj = createCacheObject(beforeData);
+            const afterObj = createCacheObject(afterData);
+
+            const diffs = [];
+
+            // Get all cache keys from both before and after
+            const allKeys = new Set([
+                ...Object.keys(beforeObj),
+                ...Object.keys(afterObj)
+            ]);
+
+            allKeys.forEach(cacheName => {
+                const beforeCount = beforeObj[cacheName] || 0;
+                const afterCount = afterObj[cacheName] || 0;
+                const diff = afterCount - beforeCount;
+
+                // Only include if there's a difference
+                if (diff !== 0) {
+                    diffs.push({
+                        cacheName,
+                        before: beforeCount,
+                        after: afterCount,
+                        diff
+                    });
+                }
+            });
+
+            return diffs.sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
+        };
+
+        const handleStart = async () => {
+            try {
+                const res = await fetchIPC(source, env);
+                setBeforeData(res);
+                updateJVMMappings(res, "before");
+                setStatus("running");
+                setStartTime(new Date().toISOString());
+            } catch (e) {
+                console.error("Failed to start patch", e);
+                alert("Failed to fetch data. See console for details.");
+            }
+        };
+
+        const handleComplete = async () => {
+            try {
+                const res = await fetchIPC(source, env);
+                const completedAt = new Date().toISOString();
+                setAfterData(res);
+                updateJVMMappings(res, "after");
+                setStatus("completed");
+                setEndTime(completedAt);
+
+                const history = JSON.parse(localStorage.getItem("patch-history") || "[]");
+                history.push({
+                    source,
+                    env,
+                    startTime,
+                    endTime: completedAt,
+                    status: "completed",
+                    beforeData,
+                    afterData: res
+                });
+                localStorage.setItem("patch-history", JSON.stringify(history));
+                
+                // Attempt to save cache data to GitHub
+                const updatedMappings = JSON.parse(localStorage.getItem("jvm_mappings") || "{}");
+                if (updatedMappings && Object.keys(updatedMappings).length > 0) {
+                    await saveCacheDataToGitHub(updatedMappings);
+                }
+            } catch (e) {
+                console.error("Failed to complete patch", e);
+                alert("Failed to fetch data. See console for details.");
+            }
+        };
+        
+        const saveCacheDataToGitHub = async (updatedMappings) => {
+            try {
+                // Get GitHub credentials from window or try to retrieve
+                const ghToken = window.ghToken;
+                const ghOwner = window.ghOwner;
+                const ghRepo = window.ghRepo;
+                const ghFilePath = window.ghFilePath || "jvm_mappings.json";
+                
+                if (!ghToken || !ghOwner || !ghRepo) {
+                    console.warn("GitHub credentials not configured. Cache data saved to localStorage only.");
+                    return;
+                }
+                
+                const apiBase = "https://api.github.com";
+                
+                // Get current file SHA
+                const getResponse = await fetch(
+                    `${apiBase}/repos/${ghOwner}/${ghRepo}/contents/${ghFilePath}`,
+                    {
+                        headers: { 'Authorization': `token ${ghToken}` }
+                    }
+                );
+                
+                if (!getResponse.ok) {
+                    console.warn("Could not fetch current file SHA from GitHub. Skipping save.");
+                    return;
+                }
+                
+                const fileData = await getResponse.json();
+                const currentSha = fileData.sha;
+                
+                // Only save __profiles__ and cache_sessions to keep file size manageable
+                const payloadJson = {
+                    __profiles__: updatedMappings.__profiles__ || {},
+                    cache_sessions: updatedMappings.cache_sessions || {}
+                };
+                
+                // Encode to Base64 for GitHub API
+                const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(payloadJson, null, 2))));
+                
+                const putResponse = await fetch(
+                    `${apiBase}/repos/${ghOwner}/${ghRepo}/contents/${ghFilePath}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${ghToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Cache count validation: ${source}-${env} (${new Date().toLocaleString()})`,
+                            content: encodedContent,
+                            sha: currentSha
+                        })
+                    }
+                );
+                
+                if (putResponse.ok) {
+                    console.log("✅ Cache data successfully saved to GitHub!");
+                } else {
+                    console.warn("Failed to save cache data to GitHub:", await putResponse.text());
+                }
+            } catch (error) {
+                console.warn("Error saving cache data to GitHub:", error.message);
+                // Don't throw error - this is optional functionality
+            }
+        };
+
+        const differences = getDifferences();
+        const checkTime = new Date(Date.now() - 60000).toLocaleTimeString();
+
+        return (
+            <div className="results-root">
+                <div className="results-header">
+                    <div></div>
+                    <h2 className="header-title">
+                        {env.toUpperCase()} Patch Validation
+                    </h2>
+                    <div className="header-right">
+                        <button onClick={goToHistory} className="secondary-btn">
+                            History
+                        </button>
+                        <button onClick={onBack} className="back-btn">
+                            ← Back
+                        </button>
+                    </div>
+                </div>
+
+                <div className="kpi-bar">
+                    <div className="kpi-split-card">
+                        <div className="kpi-left">
+                            <label>Status</label>
+                            <div className={`status-pill ${status}`}>
+                                {status === "idle" && "⚪ Not Started"}
+                                {status === "running" && "🟡 In Progress"}
+                                {status === "completed" && "🟢 Completed"}
+                            </div>
+                            <div className="time-info">
+                                <p><strong>Start:</strong> {startTime ? new Date(startTime).toLocaleString() : "-"}</p>
+                                <p><strong>End:</strong> {endTime ? new Date(endTime).toLocaleString() : "-"}</p>
+                                <p><strong>Check Time:</strong> {checkTime}</p>
+                            </div>
+                        </div>
+
+                        <div className="kpi-right">
+                            <button className="primary-btn btn-primary" onClick={handleStart}>
+                                Start Patch
+                            </button>
+                            <button className="success-btn btn-secondary" onClick={handleComplete} disabled={status !== "running"}>
+                                Complete Patch
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {status === "running" && beforeData && (
+                    <div className="results-card">
+                        <h3>✅ Before Patch Data Loaded</h3>
+                        <p>Cached {beforeData.length} cache items to jvm_mappings.json (cache_before)</p>
+                    </div>
+                )}
+
+                {status === "completed" && differences.length > 0 && (
+                    <div className="results-card">
+                        <h3>🔴 Differences Detected - Cache Count Changes (High → Low)</h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Cache Name</th>
+                                <th>Before</th>
+                                <th>After</th>
+                                <th>Difference</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {differences.map((item, i) => (
+                                <tr key={i}>
+                                    <td>{item.cacheName}</td>
+                                    <td>{item.before.toLocaleString()}</td>
+                                    <td>{item.after.toLocaleString()}</td>
+                                    <td className={item.diff > 0 ? "diff-pos" : "diff-neg"}>
+                                        {item.diff > 0 ? "+" : ""}
+                                        {item.diff.toLocaleString()}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                {status === "completed" && differences.length === 0 && (
+                    <div className="results-card" style={{ textAlign: "center", padding: "40px" }}>
+                        <h3>✅ No Cache Count Differences</h3>
+                        <p>All cache counts are identical before and after patch.</p>
+                        <p style={{ marginTop: "10px", fontSize: "12px", color: "#666" }}>
+                            Both snapshots have been saved to jvm_mappings.json (cache_before and cache_after)
+                        </p>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    // Patch History Page
+    const PatchHistoryPage = ({ onBack }) => {
+        const [history, setHistory] = useState([]);
+
+        useEffect(() => {
+            const data = JSON.parse(localStorage.getItem("patch-history") || "[]");
+            setHistory(data.reverse());
+        }, []);
+
+        const formatTime = (time) => {
+            if (!time) return "-";
+            return new Date(time).toLocaleString();
+        };
+
+        return (
+            <div className="history-root">
+                <div className="history-header">
+                    <h2>Patch History</h2>
+                    <button className="back-btn" onClick={onBack}>
+                        ← Back
+                    </button>
+                </div>
+
+                {history.length === 0 ? (
+                    <div className="empty-state">
+                        No patch history available
+                    </div>
+                ) : (
+                    <div className="history-card">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Environment</th>
+                                <th>System</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {history.map((item, i) => (
+                                <tr key={i}>
+                                    <td>{item.env.toUpperCase()}</td>
+                                    <td>{item.source.toUpperCase()}</td>
+                                    <td>{formatTime(item.startTime)}</td>
+                                    <td>{formatTime(item.endTime)}</td>
+                                    <td>
+                                            <span className={`status-badge ${item.status}`}>
+                                                {item.status}
+                                            </span>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    // Main Cache App
+    function CacheApp() {
+        const [responseData, setResponseData] = useState(null);
+        const [patchMode, setPatchMode] = useState(null);
+        const [showHistory, setShowHistory] = useState(false);
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState(null);
+
+        return (
+            <div className="cache-app-root">
+                {showHistory ? (
+                    <PatchHistoryPage
+                        onBack={() => setShowHistory(false)}
+                    />
+                ) : patchMode ? (
+                    <PatchSessionPage
+                        source={patchMode.source}
+                        env={patchMode.env}
+                        onBack={() => setPatchMode(null)}
+                        goToHistory={() => setShowHistory(true)}
+                    />
+                ) : responseData ? (
+                    <ResultsPage
+                        data={responseData}
+                        setResponseData={setResponseData}
+                        onBack={() => setResponseData(null)}
+                    />
+                ) : (
+                    <LandingPage
+                        setResponseData={setResponseData}
+                        setLoading={setLoading}
+                        setError={setError}
+                        setPatchMode={setPatchMode}
+                    />
+                )}
+
+                {loading && <Spinner />}
+                {error && (
+                    <div className="error-toast">
+                        {error}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    function initCacheDashboard() {
+        const root = document.getElementById('cache-root');
+        if (root && !root.hasChildNodes()) {
+            ReactDOM.createRoot(root).render(<CacheApp />);
+        }
+    }
+
+    window.initCacheDashboard = initCacheDashboard;
+</script>
+
+<script>
+    const filePath = 'jvm_mappings.json';
+    let MAPPING_PROFILES = []; // Dynamically populated from JSON
+    let currentSha = '';
+    let selectedMappingProfile = '';
+    let mappingsByProfile = {};
+    let cellMetaByProfile = {};
+    let DRY_RUN = false;          // Dry-run mode: load/save from local file, no GitHub auth
+    let localFileHandle = null;   // FileSystemFileHandle for direct disk read/write
+
+    // Fixed API base for this deployment (GitHub Enterprise)
+    const apiBase = 'https://github.aexp.com/api/v3';
+
+    function populateProfileSelector() {
+        const selector = document.getElementById('mapping-profile-select');
+        if (!selector) return;
+
+        selector.innerHTML = ''; // Clear existing options
+        MAPPING_PROFILES.forEach((profile) => {
+            const option = document.createElement('option');
+            option.value = profile;
+            option.textContent = profile;
+            selector.appendChild(option);
+        });
+
+        // Set first profile as selected
+        if (MAPPING_PROFILES.length > 0) {
+            selector.value = MAPPING_PROFILES[0];
+        }
+    }
+
+    function splitProfilePayload(payload) {
+        const copy = payload && typeof payload === 'object' ? { ...payload } : {};
+        const legacyCellMeta = copy.__cell_meta__ || {};
+        delete copy.__cell_meta__;
+        return { mappings: copy, legacyCellMeta };
+    }
+
+    function normalizeProfileMappings(rawMappings, legacyCellMeta = {}) {
+        const mappings = {};
+        const meta = {};
+
+        Object.entries(rawMappings || {}).forEach(([server, value]) => {
+            if (!server || server.startsWith('__')) return;
+
+            if (Array.isArray(value)) {
+                mappings[server] = value.filter(Boolean);
+                return;
+            }
+
+            if (value && typeof value === 'object') {
+                const apps = Object.keys(value);
+                mappings[server] = apps;
+
+                apps.forEach((app) => {
+                    const appMeta = value[app];
+                    if (!appMeta || typeof appMeta !== 'object') return;
+
+                    const startScriptPath = String(appMeta.startScriptPath || '').trim();
+                    const startMessage = appMeta.startMessage !== undefined ? appMeta.startMessage : null;
+                    const comments = String(appMeta.comments || '').trim();
+                    const enabled = appMeta.enabled !== undefined ? appMeta.enabled : undefined;
+                    const autoStart = appMeta.autoStart !== undefined ? Boolean(appMeta.autoStart) : undefined;
+                    const user = appMeta.user || undefined;
+
+                    if (!startScriptPath && !comments && enabled === undefined && autoStart === undefined && !user && startMessage === null) return;
+
+                    if (!meta[server]) meta[server] = {};
+                    const entry = { startScriptPath, comments, startMessage };
+                    if (enabled !== undefined) entry.enabled = enabled;
+                    if (autoStart !== undefined) entry.autoStart = autoStart;
+                    if (user) entry.user = user;
+                    meta[server][app] = entry;
+                });
+            }
+        });
+
+        Object.entries(legacyCellMeta || {}).forEach(([server, appsMeta]) => {
+            Object.entries(appsMeta || {}).forEach(([app, appMeta]) => {
+                const startScriptPath = String(appMeta?.startScriptPath || '').trim();
+                const startMessage = appMeta?.startMessage !== undefined ? appMeta.startMessage : null;
+                const comments = String(appMeta?.comments || '').trim();
+                const enabled = appMeta?.enabled !== undefined ? appMeta.enabled : undefined;
+                const autoStart = appMeta?.autoStart !== undefined ? Boolean(appMeta.autoStart) : undefined;
+                const user = appMeta?.user || undefined;
+
+                if (!startScriptPath && !comments && enabled === undefined && autoStart === undefined && !user && startMessage === null) return;
+
+                if (!meta[server]) meta[server] = {};
+                const entry = { startScriptPath, comments, startMessage };
+                if (enabled !== undefined) entry.enabled = enabled;
+                if (autoStart !== undefined) entry.autoStart = autoStart;
+                if (user) entry.user = user;
+                meta[server][app] = entry;
+
+                if (!mappings[server]) mappings[server] = [];
+                if (!mappings[server].includes(app)) mappings[server].push(app);
+            });
+        });
+
+        return { mappings, cellMeta: meta };
+    }
+
+    function initializeProfiles(payload) {
+        mappingsByProfile = {};
+        cellMetaByProfile = {};
+
+        // Extract profile names from the loaded JSON if __profiles__ exists
+        if (payload && payload.__profiles__ && typeof payload.__profiles__ === 'object') {
+            MAPPING_PROFILES = Object.keys(payload.__profiles__).filter(key => !key.startsWith('__'));
+
+            MAPPING_PROFILES.forEach((profile) => {
+                mappingsByProfile[profile] = {};
+                cellMetaByProfile[profile] = {};
+
+                const { mappings, legacyCellMeta } = splitProfilePayload(payload.__profiles__[profile]);
+                const normalized = normalizeProfileMappings(mappings, legacyCellMeta);
+                mappingsByProfile[profile] = normalized.mappings;
+                cellMetaByProfile[profile] = normalized.cellMeta;
+            });
+            return;
+        }
+
+        // Fallback for legacy format without __profiles__
+        MAPPING_PROFILES = ['Default'];
+        mappingsByProfile['Default'] = {};
+        cellMetaByProfile['Default'] = {};
+
+        const { mappings, legacyCellMeta } = splitProfilePayload(payload);
+        const normalized = normalizeProfileMappings(mappings, legacyCellMeta);
+        mappingsByProfile['Default'] = normalized.mappings;
+        cellMetaByProfile['Default'] = normalized.cellMeta;
+    }
+
+    function ensureProfileMeta(profile) {
+        if (!cellMetaByProfile[profile] || typeof cellMetaByProfile[profile] !== 'object') {
+            cellMetaByProfile[profile] = {};
+        }
+        return cellMetaByProfile[profile];
+    }
+
+    function toAppList(serverValue) {
+        if (Array.isArray(serverValue)) {
+            return serverValue.filter(Boolean);
+        }
+        if (serverValue && typeof serverValue === 'object') {
+            return Object.keys(serverValue).filter((key) => key && !key.startsWith('__'));
+        }
+        return [];
+    }
+
+    function getCellMeta(profile, server, app) {
+        const profileMeta = ensureProfileMeta(profile);
+        const entry = profileMeta?.[server]?.[app] || {};
+        return {
+            startScriptPath: entry.startScriptPath || '',
+            startMessage: entry.startMessage !== undefined ? entry.startMessage : null,
+            comments: entry.comments || '',
+            enabled: entry.enabled,
+            autoStart: entry.autoStart !== undefined ? entry.autoStart : false,
+            user: entry.user || ''
+        };
+    }
+
+    function setCellMeta(profile, server, app, meta) {
+        if (!server || !app) return;
+        const profileMeta = ensureProfileMeta(profile);
+        if (!profileMeta[server]) profileMeta[server] = {};
+
+        const existing = profileMeta[server][app] || {};
+        const cleaned = {
+            startScriptPath: (meta.startScriptPath || '').trim(),
+            comments: (meta.comments || '').trim()
+        };
+
+        // Handle startMessage — empty/blank means null
+        if (meta.startMessage !== undefined) {
+            const msg = (meta.startMessage || '').trim();
+            cleaned.startMessage = msg || null;
+        } else if (existing.startMessage !== undefined) {
+            cleaned.startMessage = existing.startMessage;
+        } else {
+            cleaned.startMessage = null;
+        }
+
+        // Preserve enabled if not explicitly passed
+        if (meta.enabled !== undefined) cleaned.enabled = meta.enabled;
+        else if (existing.enabled !== undefined) cleaned.enabled = existing.enabled;
+
+        // Handle autoStart (always store as boolean)
+        if (meta.autoStart !== undefined) cleaned.autoStart = Boolean(meta.autoStart);
+        else if (existing.autoStart !== undefined) cleaned.autoStart = existing.autoStart;
+
+        // Handle user — 'none' is a valid explicit value and must be stored
+        if (meta.user !== undefined) {
+            if (meta.user) cleaned.user = meta.user; // saves 'none', 'gridgain', 'gmsrisk'
+            // empty string means no selection was made — omit the field
+        } else if (existing.user) {
+            cleaned.user = existing.user;
+        }
+
+        if (!cleaned.startScriptPath && !cleaned.comments && cleaned.enabled === undefined
+            && cleaned.autoStart === undefined && !cleaned.user && cleaned.startMessage === null) {
+            delete profileMeta[server][app];
+            if (Object.keys(profileMeta[server]).length === 0) {
+                delete profileMeta[server];
+            }
+            return;
+        }
+
+        profileMeta[server][app] = cleaned;
+    }
+
+    function openCellMetaModal(server, app) {
+        if (!server || !app) return;
+        const modal = document.getElementById('cell-meta-modal');
+        const title = document.getElementById('meta-modal-title');
+        const pathInput = document.getElementById('meta-script-path');
+        const startMsgInput = document.getElementById('meta-start-message');
+        const commentsInput = document.getElementById('meta-comments');
+        const userSelect = document.getElementById('meta-user');
+        const autoStartCb = document.getElementById('meta-autostart');
+        const autoStartLabel = document.getElementById('meta-autostart-label');
+        const saveBtn = document.getElementById('meta-save-btn');
+        const isReadOnly = document.getElementById('editor-section').classList.contains('view-only');
+        const data = getCellMeta(selectedMappingProfile, server, app);
+
+        title.textContent = `${app} on ${server}`;
+        pathInput.value = data.startScriptPath;
+        startMsgInput.value = data.startMessage || '';
+        commentsInput.value = data.comments;
+
+        // Populate user dropdown
+        userSelect.value = data.user || '';
+        if (!userSelect.value) userSelect.value = '';
+
+        // Clear any lingering validation error from a previous open
+        clearUserError();
+
+        // Populate autoStart toggle
+        autoStartCb.checked = Boolean(data.autoStart);
+        autoStartLabel.textContent = data.autoStart ? 'On' : 'Off';
+
+        pathInput.disabled = isReadOnly;
+        startMsgInput.disabled = isReadOnly;
+        commentsInput.disabled = isReadOnly;
+        userSelect.disabled = isReadOnly;
+        autoStartCb.disabled = isReadOnly;
+        saveBtn.classList.toggle('hidden', isReadOnly);
+        saveBtn.disabled = isReadOnly;
+
+        modal.dataset.server = server;
+        modal.dataset.app = app;
+        modal.classList.remove('hidden');
+    }
+
+    function closeCellMetaModal() {
+        const modal = document.getElementById('cell-meta-modal');
+        if (!modal) return;
+        clearUserError();
+        modal.classList.add('hidden');
+        delete modal.dataset.server;
+        delete modal.dataset.app;
+    }
+
+    function saveCellMetaModal() {
+        const modal = document.getElementById('cell-meta-modal');
+        const server = modal.dataset.server || '';
+        const app = modal.dataset.app || '';
+        if (!server || !app) return;
+
+        // Require an explicit user selection — blank "— select user —" is not allowed
+        const userValue = document.getElementById('meta-user').value;
+        if (!userValue) {
+            const errEl = document.getElementById('meta-user-error');
+            if (errEl) errEl.style.display = 'block';
+            document.getElementById('meta-user').focus();
+            return; // block save
+        }
+
+        setCellMeta(selectedMappingProfile, server, app, {
+            startScriptPath: document.getElementById('meta-script-path').value,
+            startMessage: document.getElementById('meta-start-message').value,
+            comments: document.getElementById('meta-comments').value,
+            user: userValue,
+            autoStart: document.getElementById('meta-autostart').checked
+        });
+
+        document.getElementById('status-msg').style.color = '#0366d6';
+        document.getElementById('status-msg').innerText = `Saved details for ${app}`;
+        closeCellMetaModal();
+    }
+
+    function clearUserError() {
+        const errEl = document.getElementById('meta-user-error');
+        if (errEl) errEl.style.display = 'none';
+    }
+
+    function setupCellMetaModal() {
+        const modal = document.getElementById('cell-meta-modal');
+        if (!modal || modal.dataset.bound === 'true') return;
+
+        modal.dataset.bound = 'true';
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeCellMetaModal();
+            }
+        });
+    }
+
+    function renderSelectedProfile() {
+        renderEditor(mappingsByProfile[selectedMappingProfile] || {});
+    }
+
+    let profileSelectorWatchInterval = null;
+
+    function startProfileSelectorWatch() {
+        if (profileSelectorWatchInterval) clearInterval(profileSelectorWatchInterval);
+
+        profileSelectorWatchInterval = setInterval(() => {
+            const selector = document.getElementById('mapping-profile-select');
+            if (!selector) return;
+
+            const currentValue = selector.value;
+            // Only update if value changed and is a valid profile
+            if (currentValue && currentValue !== selectedMappingProfile && MAPPING_PROFILES.includes(currentValue)) {
+                selectedMappingProfile = currentValue;
+                renderSelectedProfile();
+            }
+        }, 100); // Check every 100ms
+    }
+
+    function stopProfileSelectorWatch() {
+        if (profileSelectorWatchInterval) {
+            clearInterval(profileSelectorWatchInterval);
+            profileSelectorWatchInterval = null;
+        }
+    }
+
+    // Event handler for profile selector changes
+    function onProfileSelectorChange(e) {
+        selectedMappingProfile = e.target.value;
+        renderSelectedProfile();
+        document.getElementById('status-msg').innerText = '';
+    }
+
+    function setupProfileSelector() {
+        const selector = document.getElementById('mapping-profile-select');
+        if (!selector) return;
+
+        selector.value = selectedMappingProfile;
+
+        // Remove any existing listeners by removing all listeners of this type
+        // Get old handler reference
+        if (selector._changeHandler) {
+            selector.removeEventListener('change', selector._changeHandler);
+        }
+
+        // Store and attach new handler
+        selector._changeHandler = onProfileSelectorChange;
+        selector.addEventListener('change', selector._changeHandler);
+
+        // Also start watching for value changes as a fallback
+        startProfileSelectorWatch();
+    }
+
+    function syncTableDataAttributes(table) {
+        if (!table) return;
+
+        const headerCells = Array.from(table.querySelectorAll('thead tr th')).slice(1, -1);
+        const servers = headerCells.map((th) => {
+            const input = th.querySelector('input.server-name');
+            return input ? input.value.trim() : '';
+        });
+
+        const appRows = Array.from(table.querySelectorAll('tbody tr')).filter((row) => row.querySelector('.app-name'));
+        appRows.forEach((row) => {
+            const appInput = row.querySelector('input.app-name');
+            const app = appInput ? appInput.value.trim() : '';
+            const checkboxes = Array.from(row.querySelectorAll('input.cell-checkbox'));
+            const configButtons = Array.from(row.querySelectorAll('button.cell-config-btn'));
+
+            checkboxes.forEach((checkbox, idx) => {
+                checkbox.dataset.server = servers[idx] || '';
+                checkbox.dataset.app = app;
+            });
+
+            configButtons.forEach((button, idx) => {
+                const server = servers[idx] || '';
+                button.dataset.server = server;
+                button.dataset.app = app;
+                button.disabled = !server || !app;
+            });
+        });
+    }
+
+    function attachCellConfigListeners(table) {
+        if (!table) return;
+
+        table.querySelectorAll('button.cell-config-btn').forEach((button) => {
+            if (button.dataset.bound === 'true') return;
+            button.dataset.bound = 'true';
+            button.addEventListener('click', () => {
+                openCellMetaModal(button.dataset.server || '', button.dataset.app || '');
+            });
+        });
+    }
+
+    function attachDeleteListeners(table) {
+        if (!table) return;
+
+        table.querySelectorAll('button.delete-btn[data-server-index]').forEach((btn) => {
+            if (btn.dataset.boundDelete === 'true') return;
+            btn.dataset.boundDelete = 'true';
+            btn.addEventListener('click', (e) => {
+                const idx = Number.parseInt(e.currentTarget.dataset.serverIndex || '', 10);
+                if (Number.isNaN(idx)) return;
+                removeServerColumn(idx);
+            });
+        });
+
+        table.querySelectorAll('button.delete-btn[data-app-index]').forEach((btn) => {
+            if (btn.dataset.boundDelete === 'true') return;
+            btn.dataset.boundDelete = 'true';
+            btn.addEventListener('click', (e) => {
+                const idx = Number.parseInt(e.currentTarget.dataset.appIndex || '', 10);
+                if (Number.isNaN(idx)) return;
+                removeAppRow(idx);
+            });
+        });
+    }
+
+    function toggleEditMode(isEdit) {
+        const section = document.getElementById('editor-section');
+        const label = document.getElementById('mode-label');
+        if (isEdit) {
+            section.classList.remove('view-only');
+            label.textContent = 'Edit Mode';
+        } else {
+            section.classList.add('view-only');
+            label.textContent = 'View Only';
+        }
+    }
+
+    async function loadMappings() {
+        const token = document.getElementById('gh-token').value.trim();
+        const owner = document.getElementById('gh-owner').value.trim();
+        const repo = 'submon_gmsrisk-validation-script';
+
+        if (!token || !owner || !repo) { alert('Please fill in all connection details.'); return; }
+
+        try {
+            const response = await fetch(`${apiBase}/repos/${owner}/${repo}/contents/${filePath}`, {
+                headers: { 'Authorization': `token ${token}` }
+            });
+
+            const rawText = await response.text();
+            let data = null;
+            try { data = JSON.parse(rawText); } catch(e) { /* not JSON */ }
+
+            if (!response.ok) {
+                const bodyMsg = data && data.message ? data.message : rawText || response.statusText;
+                throw new Error(`GitHub API GET failed (${response.status}): ${bodyMsg}`);
+            }
+
+            currentSha = data.sha;
+
+            const jsonContent = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+            DRY_RUN = false;
+            enterApp(jsonContent);
+        } catch (error) {
+            console.error('loadMappings error:', error);
+            alert(error.message + '\n(See Console for full details)');
+        }
+    }
+
+    // Dry-run: open jvm_mappings.json directly from disk using File System Access API
+    async function loadMappingsLocal() {
+        try {
+            let jsonContent;
+
+            if (window.showOpenFilePicker) {
+                // ── File System Access API (Chrome / Edge) ──
+                // Ask the user to pick jvm_mappings.json with read+write access
+                const [handle] = await window.showOpenFilePicker({
+                    id: 'jvm-mappings',
+                    startIn: 'documents',
+                    types: [{
+                        description: 'JSON files',
+                        accept: { 'application/json': ['.json'] }
+                    }],
+                    mode: 'readwrite'
+                });
+                localFileHandle = handle;
+
+                const file = await handle.getFile();
+                const text = await file.text();
+                jsonContent = JSON.parse(text);
+            } else {
+                // ── Fallback for Firefox / Safari: fetch from same directory ──
+                localFileHandle = null;
+                const response = await fetch('jvm_mappings.json?_=' + Date.now());
+                if (!response.ok) {
+                    throw new Error(
+                        `Could not load local jvm_mappings.json (HTTP ${response.status}). ` +
+                        `Your browser does not support the File System Access API. ` +
+                        `Use Chrome or Edge for direct file writes.`
+                    );
+                }
+                jsonContent = await response.json();
+            }
+
+            DRY_RUN = true;
+            localStorage.setItem('jvm_mappings', JSON.stringify(jsonContent));
+            enterApp(jsonContent);
+        } catch (error) {
+            if (error.name === 'AbortError') return; // user cancelled picker
+            console.error('loadMappingsLocal error:', error);
+            alert(error.message + '\n(See Console for full details)');
+        }
+    }
+
+    // Common post-load entry point
+    function enterApp(jsonContent) {
+        initializeProfiles(jsonContent);
+        populateProfileSelector();
+        selectedMappingProfile = MAPPING_PROFILES[0] || '';
+        setupProfileSelector();
+        localStorage.setItem('jvm_mappings', JSON.stringify(jsonContent));
+        setupCellMetaModal();
+        renderSelectedProfile();
+
+        document.body.classList.remove('login-mode');
+        document.body.classList.add('app-mode');
+        document.getElementById('login-shell').classList.add('hidden');
+        document.getElementById('app-shell').classList.remove('hidden');
+        document.getElementById('editor-section').classList.remove('hidden');
+        switchHomeSection('jvm-mappings');
+
+        // Show / hide dry-run badge and update save button label
+        const badge = document.getElementById('dry-run-badge');
+        const saveBtn = document.getElementById('save-btn');
+        if (DRY_RUN) {
+            if (badge) badge.classList.remove('hidden');
+            if (saveBtn) {
+                saveBtn.textContent = '💾 Save to Local File';
+                saveBtn.style.background = '#d97706';
+            }
+        } else {
+            if (badge) badge.classList.add('hidden');
+            if (saveBtn) {
+                saveBtn.textContent = 'Save Changes to GitHub';
+                saveBtn.style.background = '';
+            }
+        }
+
+        // Start in view-only mode
+        document.getElementById('edit-toggle').checked = false;
+        toggleEditMode(false);
+    }
+
+    async function testToken() {
+        const token = document.getElementById('gh-token').value.trim();
+        const tokenCheck = document.getElementById('token-check');
+        tokenCheck.innerText = '';
+        if (!token) { tokenCheck.style.color = 'red'; tokenCheck.innerText = 'Enter a token first.'; return; }
+
+        try {
+            const resp = await fetch(`${apiBase}/user`, { headers: { 'Authorization': `token ${token}` } });
+            const text = await resp.text();
+            let data = null;
+            try { data = JSON.parse(text); } catch(e) { /* not JSON */ }
+
+            if (!resp.ok) {
+                const msg = data && data.message ? data.message : text || resp.statusText;
+                tokenCheck.style.color = 'red';
+                tokenCheck.innerText = `Token invalid or insufficient: ${resp.status} ${msg}`;
+                console.error('testToken response:', resp.status, text);
+                return;
+            }
+
+            // GitHub exposes scopes via the X-OAuth-Scopes header; fetch it separately
+            const scopesResp = await fetch(`${apiBase}/`, { method: 'HEAD', headers: { 'Authorization': `token ${token}` } });
+            const scopes = scopesResp.headers.get('x-oauth-scopes') || scopesResp.headers.get('X-Oauth-Scopes') || 'none';
+
+            tokenCheck.style.color = 'green';
+            tokenCheck.innerText = `Token OK. User: ${data.login}. Scopes: ${scopes}`;
+        } catch (e) {
+            tokenCheck.style.color = 'red';
+            tokenCheck.innerText = `Token test failed: ${e.message}`;
+            console.error('testToken error:', e);
+        }
+    }
+
+    // ── Sort / filter state ──
+    let appSortOrder = '';     // '' | 'az' | 'za'
+    let serverSortOrder = '';  // '' | 'az' | 'za'
+
+    function setAppSort(order) {
+        appSortOrder = order;
+        // Update button active states
+        ['az', 'za', 'clr'].forEach(k => {
+            const btn = document.getElementById(`sort-apps-${k}`);
+            if (btn) btn.classList.toggle('active', k !== 'clr' && k === order);
+        });
+        renderSelectedProfile();
+    }
+
+    function setServerSort(order) {
+        serverSortOrder = order;
+        ['az', 'za', 'clr'].forEach(k => {
+            const btn = document.getElementById(`sort-srv-${k}`);
+            if (btn) btn.classList.toggle('active', k !== 'clr' && k === order);
+        });
+        renderSelectedProfile();
+    }
+
+    function renderEditor(data) {
+        // data: { server: [app,...], ... }
+        const container = document.getElementById('servers-container');
+        container.innerHTML = '';
+
+        // ── Read filter inputs ──
+        const appFilter    = (document.getElementById('filter-apps')?.value    || '').toLowerCase().trim();
+        const serverFilter = (document.getElementById('filter-servers')?.value || '').toLowerCase().trim();
+
+        // compute servers and unique apps
+        let servers = Object.keys(data || {}).filter((server) => server && !server.startsWith('__'));
+        const appsSet = new Set();
+        for (const server of servers) {
+            toAppList(data[server]).forEach((app) => {
+                if (app) appsSet.add(app);
+            });
+        }
+        let apps = Array.from(appsSet);
+
+        // ── Apply filters ──
+        if (appFilter)    apps    = apps.filter(a => a.toLowerCase().includes(appFilter));
+        if (serverFilter) servers = servers.filter(s => s.toLowerCase().includes(serverFilter));
+
+        // ── Apply sort ──
+        const az = (a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' });
+        const za = (a, b) => b.localeCompare(a, undefined, { sensitivity: 'base' });
+
+        if (appSortOrder === 'az')    apps.sort(az);
+        else if (appSortOrder === 'za') apps.sort(za);
+        else apps.sort(az); // default: alphabetical
+
+        if (serverSortOrder === 'az')     servers.sort(az);
+        else if (serverSortOrder === 'za') servers.sort(za);
+        // default: original insertion order (no sort)
+
+        buildTable(container, servers, apps, data);
+    }
+
+    function getContentWidth(values, minCh = 18, maxCh = 40, paddingCh = 4) {
+        const longest = values.reduce((max, value) => Math.max(max, String(value || '').trim().length), 0);
+        const width = Math.max(minCh, Math.min(maxCh, longest + paddingCh));
+        return `${width}ch`;
+    }
+
+    function refreshMappingsSizing(table) {
+        if (!table) return;
+
+        const appInputs = Array.from(table.querySelectorAll('input.app-name'));
+        const appColumnWidth = getContentWidth(appInputs.map(input => input.value), 20, 42, 4);
+        table.style.setProperty('--app-column-width', appColumnWidth);
+
+        const cornerTh = table.querySelector('thead tr th:first-child');
+        if (cornerTh) {
+            cornerTh.style.width = appColumnWidth;
+            cornerTh.style.minWidth = appColumnWidth;
+        }
+
+        appInputs.forEach(input => {
+            const cell = input.closest('td');
+            if (cell) {
+                cell.style.width = appColumnWidth;
+                cell.style.minWidth = appColumnWidth;
+            }
+        });
+
+        const serverHeaderCells = Array.from(table.querySelectorAll('thead tr th')).slice(1, -1);
+        serverHeaderCells.forEach(th => {
+            const serverInput = th.querySelector('input.server-name');
+            const headerWidth = getContentWidth([
+                serverInput ? serverInput.value : ''
+            ], 18, 34, 4);
+
+            th.style.width = headerWidth;
+            th.style.minWidth = headerWidth;
+        });
+    }
+
+    function attachMappingsSizingListeners(table) {
+        if (!table) return;
+
+        table.querySelectorAll('input.app-name, input.server-name').forEach(input => {
+            if (input.dataset.sizingBound === 'true') return;
+            input.dataset.sizingBound = 'true';
+            input.addEventListener('input', () => {
+                syncTableDataAttributes(table);
+                refreshMappingsSizing(table);
+            });
+        });
+    }
+
+    function buildTable(container, servers, apps, data) {
+        // Create table element
+        const table = document.createElement('table');
+        table.id = 'mappings-table';
+        table.style.width = 'max-content';
+        table.style.minWidth = '100%';
+        table.style.borderCollapse = 'collapse';
+        table.innerHTML = '';
+
+        // Header row
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headerRow.style.borderBottom = '2px solid #ddd';
+
+        const cornerTh = document.createElement('th');
+        cornerTh.style.textAlign = 'left';
+        cornerTh.style.padding = '8px';
+        cornerTh.innerHTML = '<strong>App / Server</strong>';
+        headerRow.appendChild(cornerTh);
+
+        servers.forEach((server, idx) => {
+            const th = document.createElement('th');
+            th.style.padding = '8px';
+            th.style.verticalAlign = 'top';
+            th.innerHTML = `
+                <div class="mapping-header-cell">
+                          <input type="text" class="server-name" value="${escapeHtml(server)}" placeholder="server.domain" style="min-width:140px" />
+                          <button class="btn btn-danger delete-btn" data-server-index="${idx}">X</button>
+                </div>
+            `;
+            headerRow.appendChild(th);
+        });
+
+        // Add column to add a server
+        const addTh = document.createElement('th');
+        addTh.style.padding = '8px';
+        addTh.innerHTML = '<button id="add-server-btn" class="btn btn-primary edit-only" title="Add Server" style="padding:6px 10px;font-size:16px;line-height:1;">+</button>';
+        headerRow.appendChild(addTh);
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Body rows for apps
+        const tbody = document.createElement('tbody');
+        apps.forEach((app, rIdx) => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #eee';
+
+            const appCell = document.createElement('td');
+            appCell.style.padding = '6px';
+            appCell.innerHTML = `
+                <div class="mapping-app-cell">
+                  <input type="text" class="app-name" value="${escapeHtml(app)}" style="width:100%" />
+                  <button class="btn btn-danger delete-btn" data-app-index="${rIdx}">Remove</button>
+                </div>
+            `;
+            tr.appendChild(appCell);
+
+            servers.forEach((server) => {
+                const td = document.createElement('td');
+                td.style.textAlign = 'center';
+                td.style.padding = '6px';
+                const checked = toAppList(data[server]).includes(app) ? 'checked' : '';
+                td.innerHTML = `
+                    <div class="mapping-cell-actions">
+                        <input type="checkbox" class="cell-checkbox" data-server="${escapeHtml(server)}" data-app="${escapeHtml(app)}" ${checked} />
+                        <button type="button" class="cell-config-btn" data-server="${escapeHtml(server)}" data-app="${escapeHtml(app)}" title="Script and comments">...</button>
+                    </div>
+                `;
+                tr.appendChild(td);
+            });
+
+            // placeholder cell for alignment with add-server column
+            const ph = document.createElement('td');
+            ph.style.padding = '6px';
+            tr.appendChild(ph);
+
+            tbody.appendChild(tr);
+        });
+
+        // Footer row: add new app button — no colspan so it stays sticky with the app column
+        const footerTr = document.createElement('tr');
+        const footerTd = document.createElement('td');
+        // colSpan = 1 (default) — the existing tbody td:first-child sticky CSS keeps it pinned left
+        footerTd.style.padding = '8px';
+        footerTd.style.position = 'sticky';
+        footerTd.style.left = '0';
+        footerTd.style.zIndex = '1';
+        footerTd.style.background = '#fff';
+        footerTd.innerHTML = '<button id="add-app-btn" class="btn btn-primary edit-only" title="Add App" style="padding:6px 10px;font-size:16px;line-height:1;">+</button>';
+        footerTr.appendChild(footerTd);
+        tbody.appendChild(footerTr);
+
+        table.appendChild(tbody);
+
+        container.appendChild(table);
+        syncTableDataAttributes(table);
+        attachCellConfigListeners(table);
+        attachMappingsSizingListeners(table);
+        refreshMappingsSizing(table);
+
+        // Wire up controls
+        document.getElementById('add-server-btn').addEventListener('click', () => addServerColumn());
+        document.getElementById('add-app-btn').addEventListener('click', () => addAppRow());
+        attachDeleteListeners(table);
+    }
+
+    function addServerColumn(name = '') {
+        const table = document.getElementById('mappings-table');
+        if (!table) {
+            renderEditor({});
+            return;
+        }
+        const thead = table.querySelector('thead tr');
+        // insert before last th (the add button)
+        const addTh = thead.lastElementChild;
+        const idx = thead.children.length - 1; // new server index
+        const th = document.createElement('th');
+        th.style.padding = '8px';
+        th.style.verticalAlign = 'top';
+        th.innerHTML = `
+            <div class="mapping-header-cell">
+              <input type="text" class="server-name" value="${escapeHtml(name)}" placeholder="server.domain" style="min-width:140px" />
+              <button class="delete-btn" data-server-index="${idx}">X</button>
+            </div>
+        `;
+        thead.insertBefore(th, addTh);
+
+        // add cell for each existing app row
+        const tbodyRows = table.querySelectorAll('tbody tr');
+        tbodyRows.forEach((tr, rIdx) => {
+            // skip footer add-app row (it has only one td colspan)
+            if (tr.querySelector('.app-name') === null) return;
+            const td = document.createElement('td');
+            td.style.textAlign = 'center';
+            td.style.padding = '6px';
+            td.innerHTML = `
+                <div class="mapping-cell-actions">
+                    <input type="checkbox" class="cell-checkbox" data-server="" data-app="" />
+                    <button type="button" class="cell-config-btn" data-server="" data-app="" title="Script and comments">...</button>
+                </div>
+            `;
+            // insert before last placeholder cell
+            tr.insertBefore(td, tr.lastElementChild);
+        });
+
+        // re-wire delete buttons' indices
+        reindexServerDeleteButtons(table);
+        syncTableDataAttributes(table);
+        attachCellConfigListeners(table);
+        attachDeleteListeners(table);
+        attachMappingsSizingListeners(table);
+        refreshMappingsSizing(table);
+    }
+
+    function addAppRow(name = '') {
+        const table = document.getElementById('mappings-table');
+        if (!table) {
+            renderEditor({});
+            return;
+        }
+        const tbody = table.querySelector('tbody');
+        // create row before footer
+        const footer = tbody.lastElementChild;
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid #eee';
+
+        const appCell = document.createElement('td');
+        appCell.style.padding = '6px';
+        const appIdx = tbody.querySelectorAll('tr').length - 1; // approximate
+        appCell.innerHTML = `
+            <div class="mapping-app-cell">
+              <input type="text" class="app-name" value="${escapeHtml(name)}" style="width:100%" />
+              <button class="delete-btn" data-app-index="${appIdx}">Remove</button>
+            </div>
+        `;
+        tr.appendChild(appCell);
+
+        const serverCount = table.querySelector('thead tr').children.length - 2; // minus corner + add col
+        for (let i = 0; i < serverCount; i++) {
+            const td = document.createElement('td');
+            td.style.textAlign = 'center';
+            td.style.padding = '6px';
+            td.innerHTML = `
+                <div class="mapping-cell-actions">
+                    <input type="checkbox" class="cell-checkbox" data-server="" data-app="" />
+                    <button type="button" class="cell-config-btn" data-server="" data-app="" title="Script and comments">...</button>
+                </div>
+            `;
+            tr.appendChild(td);
+        }
+
+        const ph = document.createElement('td');
+        ph.style.padding = '6px';
+        tr.appendChild(ph);
+
+        tbody.insertBefore(tr, footer);
+
+        // re-wire app delete buttons indices
+        reindexAppDeleteButtons(table);
+        syncTableDataAttributes(table);
+        attachCellConfigListeners(table);
+        attachDeleteListeners(table);
+        attachMappingsSizingListeners(table);
+        refreshMappingsSizing(table);
+    }
+
+    function removeServerColumn(index) {
+        const table = document.getElementById('mappings-table');
+        if (!table) return;
+        const thead = table.querySelector('thead tr');
+        // remove header th at index+1 (first is corner)
+        const thToRemove = thead.children[index + 1];
+        if (thToRemove) thToRemove.remove();
+        // remove each corresponding cell (index) in tbody rows (skip footer)
+        table.querySelectorAll('tbody tr').forEach(tr => {
+            if (tr.querySelector('.app-name') === null) return; // footer
+            // cells: 0 app cell, then server cells, then placeholder
+            const cellIdx = index + 1;
+            const td = tr.children[cellIdx];
+            if (td) td.remove();
+        });
+        reindexServerDeleteButtons(table);
+        syncTableDataAttributes(table);
+        refreshMappingsSizing(table);
+    }
+
+    function removeAppRow(index) {
+        const table = document.getElementById('mappings-table');
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
+        // find app rows (excluding footer)
+        const appRows = Array.from(tbody.querySelectorAll('tr')).filter(r => r.querySelector('.app-name'));
+        const tr = appRows[index];
+        if (tr) tr.remove();
+        reindexAppDeleteButtons(table);
+        syncTableDataAttributes(table);
+        refreshMappingsSizing(table);
+    }
+
+    function reindexServerDeleteButtons(table) {
+        const buttons = table.querySelectorAll('button.delete-btn[data-server-index]');
+        buttons.forEach((btn, idx) => btn.setAttribute('data-server-index', idx));
+    }
+
+    function reindexAppDeleteButtons(table) {
+        const buttons = table.querySelectorAll('button.delete-btn[data-app-index]');
+        buttons.forEach((btn, idx) => btn.setAttribute('data-app-index', idx));
+    }
+
+    function escapeHtml(text) {
+        if (text === undefined || text === null) return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function escapeCsv(value) {
+        const str = String(value ?? '');
+        if (str.includes('"') || str.includes(',') || str.includes('\n') || str.includes('\r')) {
+            return `"${str.replace(/"/g, '""')}"`;
+        }
+        return str;
+    }
+
+    function exportMappings() {
+        const statusMsg = document.getElementById('status-msg');
+        const table = document.getElementById('mappings-table');
+        if (!table) {
+            statusMsg.style.color = 'red';
+            statusMsg.innerText = 'Nothing to export (no mappings loaded).';
+            return;
+        }
+
+        // ── Read filter state so hidden rows/cols are also exported from in-memory data ──
+        const appFilter    = (document.getElementById('filter-apps')?.value    || '').toLowerCase().trim();
+        const serverFilter = (document.getElementById('filter-servers')?.value || '').toLowerCase().trim();
+        const serverPassesFilter = (name) => !serverFilter || name.toLowerCase().includes(serverFilter);
+        const appPassesFilter    = (name) => !appFilter    || name.toLowerCase().includes(appFilter);
+
+        // Full in-memory data (includes rows/cols hidden by filter)
+        const fullMappings = mappingsByProfile[selectedMappingProfile] || {};
+        const profileMeta  = ensureProfileMeta(selectedMappingProfile);
+
+        // Visible servers from DOM (may include renames)
+        const visibleServerInputs = Array.from(table.querySelectorAll('thead tr th'))
+            .slice(1, -1)
+            .map((th, idx) => {
+                const input = th.querySelector('input.server-name');
+                return (input ? input.value.trim() : '') || `server-${idx}`;
+            });
+
+        // Hidden servers (filtered out)
+        const hiddenServers = Object.keys(fullMappings).filter(s => !serverPassesFilter(s));
+        const allServers    = [...visibleServerInputs, ...hiddenServers];
+
+        // Visible app rows from DOM
+        const visibleAppRows = Array.from(table.querySelectorAll('tbody tr')).filter(r => r.querySelector('.app-name'));
+        const visibleApps    = visibleAppRows.map(row => {
+            const input = row.querySelector('.app-name');
+            return input ? input.value.trim() : '';
+        }).filter(Boolean);
+
+        // Build a merged checked-state map: { server: Set<app> }
+        // Seed from in-memory data, then override with live DOM state for visible cells
+        const checkedMap = {};
+        Object.entries(fullMappings).forEach(([server, apps]) => {
+            checkedMap[server] = new Set(toAppList(apps));
+        });
+        visibleAppRows.forEach(row => {
+            const appInput   = row.querySelector('.app-name');
+            const appName    = appInput ? appInput.value.trim() : '';
+            if (!appName) return;
+            const firstCb    = row.querySelector('input.cell-checkbox');
+            const oldAppName = firstCb ? (firstCb.dataset.app || appName) : appName;
+            Array.from(row.querySelectorAll('input.cell-checkbox')).forEach((cb, idx) => {
+                const server = visibleServerInputs[idx];
+                if (!server) return;
+                if (!checkedMap[server]) checkedMap[server] = new Set();
+                if (cb.checked) {
+                    checkedMap[server].add(appName);
+                } else {
+                    checkedMap[server].delete(appName);
+                    checkedMap[server].delete(oldAppName);
+                }
+            });
+        });
+
+        // Collect ALL unique apps across all servers
+        const allAppsSet = new Set(visibleApps);
+        Object.values(fullMappings).forEach(apps => toAppList(apps).forEach(a => { if (a) allAppsSet.add(a); }));
+
+        // ── Build CSV ──
+        const header = ['Profile', 'Server', 'App', 'Checked', 'Auto Start', 'User', 'Start Script Path', 'Start Message', 'Comments'];
+        const rows   = [header];
+
+        allServers.forEach(server => {
+            const appsForServer = new Set([
+                ...toAppList(fullMappings[server] || []),
+                ...(checkedMap[server] || [])
+            ]);
+
+            appsForServer.forEach(app => {
+                const meta    = profileMeta?.[server]?.[app] || {};
+                const checked = checkedMap[server]?.has(app) ? 'TRUE' : 'FALSE';
+                rows.push([
+                    selectedMappingProfile || 'Default',
+                    server,
+                    app,
+                    checked,
+                    meta.autoStart !== undefined ? String(meta.autoStart) : 'false',
+                    meta.user || '',
+                    meta.startScriptPath || '',
+                    meta.startMessage !== undefined && meta.startMessage !== null ? meta.startMessage : '',
+                    meta.comments || ''
+                ]);
+            });
+        });
+
+        const csv  = '\uFEFF' + rows.map(r => r.map(escapeCsv).join(',')).join('\r\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url  = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const profileName = (selectedMappingProfile || 'profile').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+        link.href     = url;
+        link.download = `${profileName}_jvm_mappings_${stamp}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        statusMsg.style.color = 'green';
+        statusMsg.innerText   = 'Exported all mappings (including filtered rows) to Excel-compatible CSV.';
+        setTimeout(() => { statusMsg.innerText = ''; }, 2500);
+    }
+
+    async function saveMappings() {
+        const token = document.getElementById('gh-token').value.trim();
+        const owner = document.getElementById('gh-owner').value.trim();
+        const repo = 'submon_gmsrisk-validation-script';
+        const statusMsg = document.getElementById('status-msg');
+
+        statusMsg.style.color = 'blue';
+        statusMsg.innerText = 'Saving...';
+
+        // Gather data from the table UI: build mapping server -> [apps]
+        const table = document.getElementById('mappings-table');
+        if (!table) {
+            statusMsg.style.color = 'red';
+            statusMsg.innerText = 'Nothing to save (no mappings loaded).';
+            return;
+        }
+
+        // ── Read current filter state so we can distinguish "hidden by filter" vs "deleted" ──
+        const appFilter    = (document.getElementById('filter-apps')?.value    || '').toLowerCase().trim();
+        const serverFilter = (document.getElementById('filter-servers')?.value || '').toLowerCase().trim();
+        // A server/app "passes the filter" means it SHOULD be visible in the table
+        const serverPassesFilter = (name) => !serverFilter || name.toLowerCase().includes(serverFilter);
+        const appPassesFilter    = (name) => !appFilter    || name.toLowerCase().includes(appFilter);
+
+        // Full existing profile data before this save — hidden items live here
+        const existingData = mappingsByProfile[selectedMappingProfile] || {};
+
+        // read servers from header inputs
+        const headerCells = Array.from(table.querySelectorAll('thead tr th'));
+        const serverThs   = headerCells.slice(1, -1);
+        const serverInputs = serverThs.map(th => {
+            const input = th.querySelector('input.server-name');
+            return input ? input.value.trim() : '';
+        });
+
+        // Build server rename map: oldName -> newName  (visible servers only)
+        const serverRenameMap = {};
+        const firstBodyRow = table.querySelector('tbody tr');
+        if (firstBodyRow) {
+            Array.from(firstBodyRow.querySelectorAll('input.cell-checkbox')).forEach((cb, idx) => {
+                const oldName = cb.dataset.server || '';
+                const newName = serverInputs[idx] || '';
+                if (oldName && newName && oldName !== newName) serverRenameMap[oldName] = newName;
+            });
+        }
+
+        // iterate visible app rows
+        const appRows = Array.from(table.querySelectorAll('tbody tr')).filter(r => r.querySelector('.app-name'));
+
+        // Build app rename map: oldName -> newName  (visible apps only)
+        const appRenameMap = {};
+        appRows.forEach(row => {
+            const appInput = row.querySelector('.app-name');
+            const newAppName = appInput ? appInput.value.trim() : '';
+            const firstCb   = row.querySelector('input.cell-checkbox');
+            const oldAppName = firstCb ? (firstCb.dataset.app || '') : '';
+            if (oldAppName && newAppName && oldAppName !== newAppName) appRenameMap[oldAppName] = newAppName;
+        });
+
+        // Old server / app names that are actually rendered in the table right now
+        const oldServerNamesInTable = new Set();
+        if (firstBodyRow) {
+            Array.from(firstBodyRow.querySelectorAll('input.cell-checkbox')).forEach(cb => {
+                if (cb.dataset.server) oldServerNamesInTable.add(cb.dataset.server);
+            });
+        }
+        const oldAppNamesInTable = new Set();
+        appRows.forEach(row => {
+            const cb = row.querySelector('input.cell-checkbox');
+            if (cb && cb.dataset.app) oldAppNamesInTable.add(cb.dataset.app);
+        });
+
+        // Map: oldServerName → newServerName for every visible server
+        const visibleServerOldToNew = {};
+        if (firstBodyRow) {
+            Array.from(firstBodyRow.querySelectorAll('input.cell-checkbox')).forEach((cb, idx) => {
+                const oldName = cb.dataset.server || '';
+                const newName = serverInputs[idx] || '';
+                if (oldName) visibleServerOldToNew[oldName] = newName;
+            });
+        }
+
+        // ══════════════════════════════════════════════════════════════════
+        // Build MERGED mappings:
+        //   • Hidden servers  (fail filter)             → carry over untouched
+        //   • Visible servers (pass filter, in DOM)     → rebuild from checkboxes
+        //     – Hidden apps within visible servers      → carry over from existingData
+        //     – Visible apps within visible servers     → read from checkboxes
+        //   • Deleted servers (pass filter, NOT in DOM) → drop
+        //   • Deleted apps    (pass filter, NOT in DOM) → drop
+        // ══════════════════════════════════════════════════════════════════
+        const mergedJson = {};
+
+        // Step 1 — hidden servers: preserve as-is (apply any visible-app renames)
+        Object.entries(existingData).forEach(([server, apps]) => {
+            if (serverPassesFilter(server)) return; // visible range — handled later
+            // Server is hidden by filter → keep it, applying any app renames picked up from DOM
+            mergedJson[server] = toAppList(apps).map(app => appRenameMap[app] || app);
+        });
+
+        // Step 2 — visible apps (from DOM checkboxes) on visible servers
+        appRows.forEach(row => {
+            const appInput = row.querySelector('.app-name');
+            const appName  = appInput ? appInput.value.trim() : '';
+            if (!appName) return;
+            Array.from(row.querySelectorAll('input.cell-checkbox')).forEach((cb, idx) => {
+                if (cb.checked) {
+                    const server = serverInputs[idx] || `server-${idx}`;
+                    if (!mergedJson[server]) mergedJson[server] = [];
+                    if (!mergedJson[server].includes(appName)) mergedJson[server].push(appName);
+                }
+            });
+        });
+
+        // Step 3 — hidden apps within visible servers: carry over from existingData
+        Object.entries(visibleServerOldToNew).forEach(([oldServer, newServer]) => {
+            toAppList(existingData[oldServer] || []).forEach(oldApp => {
+                if (appPassesFilter(oldApp)) return; // visible app, already handled in step 2
+                // App is hidden by filter → preserve (apply rename if applicable)
+                const resolvedApp = appRenameMap[oldApp] || oldApp;
+                if (!mergedJson[newServer]) mergedJson[newServer] = [];
+                if (!mergedJson[newServer].includes(resolvedApp)) mergedJson[newServer].push(resolvedApp);
+            });
+        });
+
+        // Persist the merged data
+        mappingsByProfile[selectedMappingProfile] = mergedJson;
+
+        // ── Update cellMeta: same hidden/deleted/renamed logic ──
+        const selectedMeta = ensureProfileMeta(selectedMappingProfile);
+        const updatedMeta  = {};
+
+        Object.entries(selectedMeta).forEach(([oldServer, appsMeta]) => {
+            let newServer = serverRenameMap[oldServer] || oldServer;
+
+            // Deleted: passes filter but was not rendered → drop
+            if (serverPassesFilter(oldServer) && !oldServerNamesInTable.has(oldServer) && oldServerNamesInTable.size > 0) return;
+
+            const updatedAppMeta = {};
+            Object.entries(appsMeta || {}).forEach(([oldApp, meta]) => {
+                let newApp = appRenameMap[oldApp] || oldApp;
+
+                // Deleted: passes filter but was not rendered → drop
+                if (appPassesFilter(oldApp) && !oldAppNamesInTable.has(oldApp) && oldAppNamesInTable.size > 0) return;
+
+                const scriptPath = (meta.startScriptPath || '').trim();
+                const startMessage = meta.startMessage !== undefined ? meta.startMessage : null;
+                const note       = (meta.comments || '').trim();
+                const enabled    = meta.enabled;
+                const autoStart  = meta.autoStart;
+                const user       = meta.user;
+                if (scriptPath || note || enabled !== undefined || autoStart !== undefined || user || startMessage !== null) {
+                    const entry = { startScriptPath: scriptPath, startMessage, comments: note };
+                    if (enabled   !== undefined) entry.enabled   = enabled;
+                    if (autoStart !== undefined) entry.autoStart = autoStart;
+                    if (user) entry.user = user;
+                    updatedAppMeta[newApp] = entry;
+                }
+            });
+
+            if (Object.keys(updatedAppMeta).length > 0) updatedMeta[newServer] = updatedAppMeta;
+        });
+
+        cellMetaByProfile[selectedMappingProfile] = updatedMeta;
+
+        const profilesPayload = {};
+        MAPPING_PROFILES.forEach((profile) => {
+            const profileJson = {};
+            const profileMappings = mappingsByProfile[profile] || {};
+            const profileMeta = cellMetaByProfile[profile] || {};
+
+            Object.entries(profileMappings).forEach(([server, apps]) => {
+                const appMeta = profileMeta[server] || {};
+                const serverJson = {};
+
+                (apps || []).forEach((app) => {
+                    const details = appMeta[app] || {};
+                    const startScriptPath = String(details.startScriptPath || '').trim();
+                    const startMessage = details.startMessage !== undefined ? details.startMessage : null;
+                    const comments = String(details.comments || '').trim();
+                    const enabled = details.enabled;
+                    const autoStart = details.autoStart;
+                    const user = details.user;
+                    const appJson = {};
+                    if (startScriptPath) appJson.startScriptPath = startScriptPath;
+                    appJson.startMessage = startMessage;
+                    if (comments) appJson.comments = comments;
+                    if (enabled !== undefined) appJson.enabled = enabled;
+                    if (autoStart !== undefined) appJson.autoStart = autoStart;
+                    if (user) appJson.user = user;
+                    serverJson[app] = appJson;
+                });
+
+                profileJson[server] = serverJson;
+            });
+
+            profilesPayload[profile] = profileJson;
+        });
+
+        // Only save __profiles__ - no root-level server duplication
+        const payloadJson = {
+            __profiles__: profilesPayload
+        };
+
+        // ── DRY-RUN MODE: write directly back to the local file on disk ──
+        if (DRY_RUN) {
+            const jsonStr = JSON.stringify(payloadJson, null, 2);
+
+            if (localFileHandle) {
+                // File System Access API — write directly to the file the user opened
+                try {
+                    const permission = await localFileHandle.queryPermission({ mode: 'readwrite' });
+                    if (permission !== 'granted') {
+                        const requested = await localFileHandle.requestPermission({ mode: 'readwrite' });
+                        if (requested !== 'granted') {
+                            throw new Error('Write permission was not granted for the selected file.');
+                        }
+                    }
+
+                    const writable = await localFileHandle.createWritable();
+                    await writable.write(jsonStr);
+                    await writable.close();
+                    localStorage.setItem('jvm_mappings', JSON.stringify(payloadJson));
+                    statusMsg.style.color = '#d97706';
+                    statusMsg.innerText = `⚡ Dry Run: Saved directly to ${localFileHandle.name} on disk.`;
+                    setTimeout(() => statusMsg.innerText = '', 4000);
+                } catch (writeErr) {
+                    console.error('File write error:', writeErr);
+                    statusMsg.style.color = 'red';
+                    statusMsg.innerText = `File write failed: ${writeErr.message}. Local file was not updated.`;
+                }
+            } else {
+                // Fallback for browsers without File System Access API
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'jvm_mappings.json';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                URL.revokeObjectURL(url);
+                localStorage.setItem('jvm_mappings', JSON.stringify(payloadJson));
+                statusMsg.style.color = '#d97706';
+                statusMsg.innerText = '⚡ Dry Run: Downloaded jvm_mappings.json (your browser does not support direct file writes — use Chrome/Edge for that).';
+                setTimeout(() => statusMsg.innerText = '', 6000);
+            }
+            return;
+        }
+
+        // ── GITHUB MODE ──
+        // Encode to Base64 for GitHub API
+        const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(payloadJson, null, 2))));
+
+        try {
+            const response = await fetch(`${apiBase}/repos/${owner}/${repo}/contents/${filePath}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: "Updated JVM mappings via Web UI",
+                    content: encodedContent,
+                    sha: currentSha
+                })
+            });
+
+            const rawText = await response.text();
+            let responseData = null;
+            try { responseData = JSON.parse(rawText); } catch(e) { /* not JSON */ }
+
+            if (!response.ok) {
+                const bodyMsg = responseData && responseData.message ? responseData.message : rawText || response.statusText;
+                throw new Error(`GitHub API PUT failed (${response.status}): ${bodyMsg}`);
+            }
+
+            // Validate responseData has expected structure
+            if (!responseData || !responseData.content || !responseData.content.sha) {
+                throw new Error('GitHub API returned unexpected response format: missing SHA');
+            }
+
+            currentSha = responseData.content.sha; // Update SHA for subsequent saves
+
+            // Keep local copy in sync with what was pushed.
+            localStorage.setItem('jvm_mappings', JSON.stringify(payloadJson));
+
+            statusMsg.style.color = 'green';
+            statusMsg.innerText = 'Successfully saved to GitHub!';
+            setTimeout(() => statusMsg.innerText = '', 3000);
+
+        } catch (error) {
+            statusMsg.style.color = 'red';
+            statusMsg.innerText = error.message;
+        }
+    }
+</script>
+</body>
+</html>
