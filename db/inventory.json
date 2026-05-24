@@ -2111,6 +2111,14 @@
         "autoStart": false,
         "comments": "",
         "user": "gridgain"
+      },
+      "lgposputb50207.gso.aexp.com": {
+        "isRunning": true,
+        "startScriptPath": "test for new json",
+        "startMessage": "test for new json",
+        "autoStart": true,
+        "comments": "test for new json",
+        "user": "sda"
       }
     },
     "Archive": {
